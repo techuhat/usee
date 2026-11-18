@@ -106,6 +106,14 @@ async function start(): Promise<void> {
     logger,
     createCorrelationId: () => asCorrelationId(randomUUID()),
   });
+  // Automated tests start every app on fresh data; the welcome tour would stand in front of each.
+  if (
+    app.isPackaged === false &&
+    process.env['USEE_SKIP_WELCOME'] === '1' &&
+    settings.current().welcome === undefined
+  ) {
+    await settings.update({ welcome: { seen: true } });
+  }
 
   projects = composeProjects(
     recordingEnvironment.projectsRoot,

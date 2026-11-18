@@ -91,9 +91,12 @@ function exportStatus(runtime: ExportRuntimeStatusDto | null): string {
 export function SettingsPage({
   settings,
   runtime,
+  onShowWelcome,
 }: {
   readonly settings: SettingsStore;
   readonly runtime: RuntimeInfoState;
+  /** Opens the welcome tour a first start shows. */
+  readonly onShowWelcome: () => void;
 }) {
   const current = useStore(settings, (state) => state.settings);
   const error = useStore(settings, (state) => state.error);
@@ -300,6 +303,11 @@ export function SettingsPage({
             Export uses FFmpeg, licensed under the LGPL 2.1 or later and built from its published
             source without GPL or non-free parts. Its licence ships beside the app.
           </p>
+          <div>
+            <button type="button" onClick={onShowWelcome}>
+              Show the welcome tour
+            </button>
+          </div>
         </Card>
       </div>
     </div>

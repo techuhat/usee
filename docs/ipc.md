@@ -38,7 +38,7 @@ Picture focus adds `desktop.project.get-picture-changes` and `desktop.project.sa
 
 ## Settings
 
-The `desktop.settings.*` channels read and change the user's settings: `get` returns the whole validated snapshot (`packages/contracts/src/settings.ts`), and `update` replaces the sections it names (`recording`, `newProjects`, `export`) and returns the result, which main validates whole before it saves it. No setting is a path or a device: the microphone is chosen for each recording, and the renderer cannot name a folder. `desktop.app.show-projects-folder` takes no input and opens the projects folder, which only main knows, in the system file manager.
+The `desktop.settings.*` channels read and change the user's settings: `get` returns the whole validated snapshot (`packages/contracts/src/settings.ts`), and `update` replaces the sections it names (`recording`, `newProjects`, `export`, `analysis`, `welcome`) and returns the result, which main validates whole before it saves it. No setting is a path or a device: the microphone is chosen for each recording, and the renderer cannot name a folder. `desktop.app.show-projects-folder` takes no input and opens the projects folder, which only main knows, in the system file manager.
 
 ## Contract rules
 

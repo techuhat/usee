@@ -139,6 +139,7 @@ export type {
   NewProjectDefaults,
   RecordingDefaults,
   UpdateSettingsRequest,
+  WelcomeSettings,
 } from './settings';
 export {
   analysisSettingsSchema,
@@ -148,6 +149,7 @@ export {
   recordingDefaultsSchema,
   SETTINGS_VERSION,
   updateSettingsRequestSchema,
+  welcomeSettingsSchema,
 } from './settings';
 export type {
   AssetReference,

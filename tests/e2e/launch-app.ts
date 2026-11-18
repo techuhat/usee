@@ -36,7 +36,12 @@ export interface LaunchedApp {
  * removes it itself.
  */
 export async function launchDesktopApp(
-  options: { readonly dataDirectory?: string; readonly hideWhileRecording?: boolean } = {},
+  options: {
+    readonly dataDirectory?: string;
+    readonly hideWhileRecording?: boolean;
+    /** Lets a first start open with the welcome tour, as it does outside tests. */
+    readonly welcome?: boolean;
+  } = {},
 ): Promise<LaunchedApp> {
   const dataDirectory = options.dataDirectory ?? (await mkdtemp(path.join(tmpdir(), 'usee-e2e-')));
   const environment = Object.fromEntries(
@@ -50,6 +55,9 @@ export async function launchDesktopApp(
   // A minimized window cannot be clicked; the recording-controls test opts back in.
   if (options.hideWhileRecording !== true) {
     environment['USEE_KEEP_WINDOW_WHILE_RECORDING'] = '1';
+  }
+  if (options.welcome !== true) {
+    environment['USEE_SKIP_WELCOME'] = '1';
   }
 
   // One device pixel per CSS pixel, so screenshots are the same size on any display scale.

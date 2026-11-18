@@ -11,7 +11,10 @@ import type { RecordingStore } from './recording/recording-store';
 import { useRuntimeInfo } from './runtime/use-runtime-info';
 import { SettingsPage } from './settings/SettingsPage';
 import type { SettingsStore } from './settings/settings-store';
+import { MOTION } from './shell/motion';
 import { PAGES, Sidebar, type Page } from './shell/Sidebar';
+import { INTRO_MS } from './shell/StartupIntro';
+import { Welcome } from './welcome/Welcome';
 
 export function App({
   recordingStore,
@@ -32,6 +35,13 @@ export function App({
   const project = useStore(projectStore, (state) => state.project);
   const recording = useStore(recordingStore, (state) => state.recording);
   const projectError = useStore(projectStore, (state) => state.error);
+  // The welcome tour opens on a first start, once the settings say it has not been seen;
+  // after that it opens only from Settings.
+  const welcomeSeen = useStore(settingsStore, (state) =>
+    state.settings === undefined ? undefined : state.settings.welcome?.seen === true,
+  );
+  const [welcomeOpen, setWelcomeOpen] = useState<boolean | undefined>(undefined);
+  const showWelcome = welcomeOpen ?? welcomeSeen === false;
 
   // A finished recording opens straight in the editor.
   const completedPath = recording.phase === 'completed' ? recording.projectPath : null;
@@ -74,8 +84,22 @@ export function App({
           />
         )}
         {page === 'recordings' && <RecordingsPage store={projectStore} />}
-        {page === 'settings' && <SettingsPage settings={settingsStore} runtime={runtime} />}
+        {page === 'settings' && (
+          <SettingsPage
+            settings={settingsStore}
+            runtime={runtime}
+            onShowWelcome={() => setWelcomeOpen(true)}
+          />
+        )}
       </main>
+      {showWelcome && (
+        <Welcome
+          settings={settingsStore}
+          // Opening with the app, it waits for the startup intro to finish.
+          entranceDelayMs={welcomeOpen === undefined && MOTION ? INTRO_MS : 0}
+          onClose={() => setWelcomeOpen(false)}
+        />
+      )}
     </div>
   );
 }

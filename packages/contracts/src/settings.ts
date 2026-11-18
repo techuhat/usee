@@ -65,6 +65,10 @@ export const analysisSettingsSchema = z
   .readonly();
 export type AnalysisSettings = z.output<typeof analysisSettingsSchema>;
 
+/** The welcome tour a first start opens with; Settings can show it again. */
+export const welcomeSettingsSchema = z.object({ seen: z.boolean() }).strict().readonly();
+export type WelcomeSettings = z.output<typeof welcomeSettingsSchema>;
+
 export const appSettingsSchema = z
   .object({
     settingsVersion: z.literal(SETTINGS_VERSION),
@@ -73,6 +77,8 @@ export const appSettingsSchema = z
     export: exportDefaultsSchema,
     /** Absent in files from before it existed: the camera then follows the pointer only. */
     analysis: analysisSettingsSchema.exactOptional(),
+    /** Absent in files from before it existed, and on a first start: the tour has not been seen. */
+    welcome: welcomeSettingsSchema.exactOptional(),
   })
   .strict()
   .readonly();
@@ -85,6 +91,7 @@ export const updateSettingsRequestSchema = z
     newProjects: newProjectDefaultsSchema.exactOptional(),
     export: exportDefaultsSchema.exactOptional(),
     analysis: analysisSettingsSchema.exactOptional(),
+    welcome: welcomeSettingsSchema.exactOptional(),
   })
   .strict()
   .readonly();

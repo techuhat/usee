@@ -25,6 +25,18 @@ describe('app settings', () => {
     expect(appSettingsSchema.parse(settings)).toEqual(settings);
   });
 
+  it('remembers that the welcome tour was seen, and reads files from before it existed', () => {
+    const seen = { ...settings, welcome: { seen: true } };
+    expect(appSettingsSchema.parse(seen)).toEqual(seen);
+    expect(appSettingsSchema.parse(settings).welcome).toBeUndefined();
+    expect(appSettingsSchema.safeParse({ ...settings, welcome: { seen: 'yes' } }).success).toBe(
+      false,
+    );
+    expect(updateSettingsRequestSchema.parse({ welcome: { seen: true } })).toEqual({
+      welcome: { seen: true },
+    });
+  });
+
   it('refuses another version, so a newer file is never misread', () => {
     expect(appSettingsSchema.safeParse({ ...settings, settingsVersion: 2 }).success).toBe(false);
   });

@@ -10,6 +10,7 @@ import { startExportFrameRenderer } from './editor/export-frame-renderer';
 import { createRecordingStore } from './recording/recording-store';
 import { RegionPicker } from './recording/RegionPicker';
 import { createSettingsStore } from './settings/settings-store';
+import { StartupIntro } from './shell/StartupIntro';
 import './styles.css';
 
 const rootElement = document.getElementById('root');
@@ -50,6 +51,7 @@ function startApp(root: HTMLElement): void {
 
   createRoot(root).render(
     <StrictMode>
+      <StartupIntro />
       <App
         recordingStore={recordingStore}
         projectStore={projectStore}

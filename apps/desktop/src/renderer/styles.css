@@ -2029,3 +2029,822 @@ kbd {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/*
+ * The startup intro (shell/StartupIntro.tsx), 1250 ms as the window opens: the plate
+ * settles, the lens ring draws itself, the tally light comes on, and the mark zooms
+ * past as the app shows through. It takes no clicks; with less motion it is not drawn.
+ */
+.startup-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(42rem 30rem at 50% 46%, #1b2142, transparent 70%), var(--rail);
+  pointer-events: none;
+  animation: intro-leave 330ms cubic-bezier(0.4, 0, 0.2, 1) 900ms forwards;
+}
+
+.startup-mark {
+  display: flex;
+  align-items: center;
+  gap: 1.125rem;
+  animation: intro-zoom 330ms cubic-bezier(0.55, 0, 1, 0.45) 900ms forwards;
+}
+
+.startup-mark-art {
+  width: 4.5rem;
+  height: 4.5rem;
+  overflow: visible;
+}
+
+.intro-plate {
+  fill: var(--raised);
+  stroke: var(--rule-strong);
+  transform-origin: 14px 14px;
+  animation: intro-plate 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.intro-glass {
+  fill: #0c1022;
+  opacity: 0;
+  animation: intro-fade 300ms ease-out 140ms forwards;
+}
+
+.intro-lens {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transform: rotate(-90deg);
+  transform-origin: 14px 14px;
+  animation: intro-draw 540ms cubic-bezier(0.65, 0, 0.35, 1) 120ms forwards;
+}
+
+.intro-glow {
+  fill: var(--tally);
+  opacity: 0;
+  filter: blur(1.6px);
+  transform-origin: 14px 14px;
+  animation: intro-glow 700ms ease-out 600ms forwards;
+}
+
+.intro-tally {
+  fill: var(--tally);
+  transform: scale(0);
+  transform-origin: 14px 14px;
+  animation: intro-light 340ms cubic-bezier(0.34, 1.56, 0.64, 1) 580ms forwards;
+}
+
+.startup-word {
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: translateX(-0.5rem);
+  animation: intro-word 460ms cubic-bezier(0.2, 0.8, 0.2, 1) 360ms forwards;
+}
+
+@keyframes intro-plate {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-light {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes intro-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  30% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+@keyframes intro-word {
+  to {
+    opacity: 1;
+    transform: none;
+    letter-spacing: -0.01em;
+  }
+}
+
+@keyframes intro-zoom {
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes intro-leave {
+  to {
+    opacity: 0;
+  }
+}
+
+/* The welcome tour (welcome/Welcome.tsx): a picture on the left, the step on the right. */
+.welcome-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(5 7 16 / 74%);
+  backdrop-filter: blur(6px);
+}
+
+.welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  width: min(57rem, 100%);
+  /* Tall enough for the last step, so the tour keeps one size from step to step. */
+  min-height: 34.5rem;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 1.25rem;
+  background: var(--panel);
+  box-shadow: 0 2rem 5rem rgb(0 0 0 / 45%);
+}
+
+.welcome-stage {
+  display: grid;
+  place-items: center;
+  border-right: 1px solid var(--rule);
+  padding: 2.5rem 2rem;
+  background:
+    radial-gradient(28rem 20rem at 25% 15%, rgb(95 211 232 / 7%), transparent 70%),
+    radial-gradient(24rem 18rem at 85% 95%, rgb(255 178 62 / 8%), transparent 70%), var(--rail);
+}
+
+.welcome-scene {
+  width: 100%;
+}
+
+.welcome-body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5rem;
+  padding: 1.5rem 1.75rem 1.5rem 2rem;
+}
+
+.welcome-top,
+.welcome-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.welcome-steps {
+  display: flex;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.welcome-dot {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: var(--rule-strong);
+  transition:
+    width 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 260ms;
+}
+
+.welcome-dot:hover:not(:disabled) {
+  background: var(--mist);
+}
+
+.welcome-dot[aria-current='step'],
+.welcome-dot[aria-current='step']:hover:not(:disabled) {
+  width: 1.5rem;
+  background: var(--tally);
+}
+
+.welcome-step {
+  align-self: center;
+}
+
+.welcome-step h2 {
+  margin: 0 0 0.875rem;
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.welcome-step p {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.welcome-looks {
+  display: grid;
+  gap: 0.875rem;
+  margin-top: 1.25rem;
+}
+
+.welcome-next {
+  min-width: 6.5rem;
+  border-color: transparent;
+  background: var(--tally);
+  color: #1d1404;
+  font-weight: 650;
+}
+
+.welcome-next:hover:not(:disabled) {
+  border-color: transparent;
+  background: #ffc366;
+}
+
+/* The tour's pictures (welcome/scenes.tsx), in the app's own colours. */
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 30px rgb(0 0 0 / 35%));
+}
+
+.scene-desk {
+  fill: #0b0f1f;
+}
+
+.scene-window {
+  fill: var(--panel);
+  stroke: var(--rule);
+}
+
+.scene-titlebar,
+.scene-stand {
+  fill: var(--raised);
+}
+
+.scene-control,
+.scene-line {
+  fill: var(--rule-strong);
+}
+
+.scene-line.depth {
+  fill: rgb(95 211 232 / 55%);
+}
+
+.scene-line.tally {
+  fill: rgb(255 178 62 / 70%);
+}
+
+.scene-button {
+  fill: var(--tally);
+}
+
+.scene-button-label {
+  fill: #1d1404;
+  font: 650 9px var(--font-text);
+  text-anchor: middle;
+}
+
+.zoom-ripple {
+  fill: none;
+  stroke: var(--tally);
+  stroke-width: 2;
+  opacity: 0;
+}
+
+.zoom-cursor,
+.looks-cursor {
+  fill: var(--paper);
+  stroke: #0b0f1f;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.area-dim {
+  fill: rgb(4 6 14 / 55%);
+}
+
+.area-selection {
+  fill: none;
+  stroke: var(--tally);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+}
+
+.area-badge circle {
+  fill: rgb(4 6 14 / 72%);
+  stroke: var(--paper);
+  stroke-width: 1.5;
+}
+
+.area-count {
+  fill: var(--paper);
+  font: 650 22px var(--font-display);
+  text-anchor: middle;
+  opacity: 0;
+}
+
+.area-count.three {
+  opacity: 1;
+}
+
+.area-live {
+  opacity: 0;
+}
+
+.area-live circle {
+  fill: var(--record-light);
+}
+
+.area-live text {
+  fill: var(--paper);
+  font: 650 8px var(--font-text);
+  letter-spacing: 0.08em;
+}
+
+.privacy-file rect {
+  fill: rgb(95 211 232 / 16%);
+  stroke: var(--depth);
+  stroke-width: 1.2;
+}
+
+.privacy-file path {
+  fill: var(--depth);
+}
+
+.privacy-folder-back {
+  fill: #2d3660;
+}
+
+.privacy-folder {
+  fill: var(--raised);
+  stroke: var(--rule-strong);
+}
+
+.privacy-lock circle {
+  fill: var(--tally);
+}
+
+.privacy-lock path {
+  fill: none;
+  stroke: #1d1404;
+  stroke-width: 1.6;
+}
+
+.privacy-lock rect {
+  fill: #1d1404;
+}
+
+.privacy-cloud path {
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.privacy-cloud .privacy-slash {
+  stroke: var(--record-light);
+}
+
+.looks-scene {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  box-shadow: 0 18px 30px rgb(0 0 0 / 35%);
+  perspective: 56rem;
+}
+
+.looks-frame {
+  width: 100%;
+  overflow: hidden;
+  transition:
+    width 360ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-radius 360ms,
+    box-shadow 360ms;
+}
+
+.looks-frame.framed {
+  width: 80%;
+  border-radius: 0.5rem;
+  box-shadow: 0 14px 28px rgb(0 0 0 / 45%);
+}
+
+.looks-picture {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .zoom-camera {
+    transform-origin: 225px 138px;
+    animation: scene-zoom 6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .zoom-cursor {
+    animation: scene-cursor 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .zoom-ripple {
+    transform-origin: 225px 138px;
+    animation: scene-ripple 6s ease-out infinite;
+  }
+
+  .area-selection {
+    transform-origin: 110px 52px;
+    animation:
+      area-draw 6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite,
+      area-march 0.8s linear infinite;
+  }
+
+  .area-dim {
+    animation: area-dim 6s ease-out infinite;
+  }
+
+  .area-badge {
+    animation: area-badge 6s ease-out infinite;
+  }
+
+  .area-count {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: area-count 6s ease-out infinite both;
+  }
+
+  .area-count.three {
+    animation-delay: 1.68s;
+  }
+
+  .area-count.two {
+    animation-delay: 2.4s;
+  }
+
+  .area-count.one {
+    animation-delay: 3.12s;
+  }
+
+  .area-live {
+    animation: area-live 6s ease-out infinite;
+  }
+
+  .area-live circle {
+    animation: live-pulse 1s ease-in-out infinite;
+  }
+
+  .privacy-file {
+    animation: privacy-file 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .privacy-cloud {
+    animation: privacy-cloud 3.6s ease-in-out infinite;
+  }
+
+  .looks-frame.turning {
+    animation: looks-turn 5s ease-in-out infinite;
+  }
+
+  .looks-frame.zooming .looks-camera {
+    transform-origin: 225px 138px;
+    animation: looks-zoom 5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .welcome-backdrop {
+    animation: welcome-fade 260ms ease-out both;
+    animation-delay: var(--welcome-delay, 0ms);
+  }
+
+  .welcome {
+    animation: welcome-rise 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(var(--welcome-delay, 0ms) + 40ms);
+  }
+
+  .welcome-backdrop.closing {
+    animation: welcome-leave 180ms ease-in forwards;
+  }
+
+  .welcome-backdrop.closing .welcome {
+    animation: welcome-sink 180ms ease-in forwards;
+  }
+
+  .welcome-scene {
+    animation: scene-in 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .welcome-step[data-direction='forward'] {
+    animation: step-from-right 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .welcome-step[data-direction='back'] {
+    animation: step-from-left 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  @keyframes scene-zoom {
+    0%,
+    30% {
+      transform: none;
+    }
+
+    44%,
+    74% {
+      transform: scale(1.9);
+    }
+
+    90%,
+    100% {
+      transform: none;
+    }
+  }
+
+  @keyframes scene-cursor {
+    0% {
+      opacity: 0;
+      transform: translate(-150px, -92px);
+    }
+
+    4% {
+      opacity: 1;
+      transform: translate(-150px, -92px);
+    }
+
+    27%,
+    92% {
+      opacity: 1;
+      transform: none;
+    }
+
+    97%,
+    100% {
+      opacity: 0;
+      transform: none;
+    }
+  }
+
+  @keyframes scene-ripple {
+    0%,
+    27% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+
+    29% {
+      opacity: 0.95;
+    }
+
+    42%,
+    100% {
+      opacity: 0;
+      transform: scale(1.7);
+    }
+  }
+
+  @keyframes area-draw {
+    0% {
+      opacity: 0;
+      transform: scale(0.05);
+    }
+
+    4% {
+      opacity: 1;
+    }
+
+    22%,
+    94% {
+      opacity: 1;
+      transform: none;
+    }
+
+    100% {
+      opacity: 0;
+      transform: none;
+    }
+  }
+
+  @keyframes area-march {
+    to {
+      stroke-dashoffset: -18;
+    }
+  }
+
+  @keyframes area-dim {
+    0%,
+    18% {
+      opacity: 0;
+    }
+
+    26%,
+    92% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes area-badge {
+    0%,
+    26% {
+      opacity: 0;
+    }
+
+    28%,
+    64% {
+      opacity: 1;
+    }
+
+    67%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes area-count {
+    0% {
+      opacity: 0;
+      transform: scale(1.35);
+    }
+
+    2% {
+      opacity: 1;
+      transform: none;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    12%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes area-live {
+    0%,
+    66% {
+      opacity: 0;
+    }
+
+    68%,
+    92% {
+      opacity: 1;
+    }
+
+    96%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes live-pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  @keyframes privacy-file {
+    0% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    15% {
+      opacity: 1;
+      transform: translateY(-8px);
+    }
+
+    55% {
+      opacity: 1;
+      transform: translateY(30px);
+    }
+
+    70%,
+    100% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  }
+
+  @keyframes privacy-cloud {
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @keyframes looks-turn {
+    0%,
+    100% {
+      transform: none;
+    }
+
+    35%,
+    65% {
+      transform: rotateY(-16deg) rotateX(7deg) scale(0.96);
+    }
+  }
+
+  @keyframes looks-zoom {
+    0%,
+    20% {
+      transform: none;
+    }
+
+    40%,
+    70% {
+      transform: scale(1.6);
+    }
+
+    90%,
+    100% {
+      transform: none;
+    }
+  }
+
+  @keyframes welcome-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes welcome-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+    }
+  }
+
+  @keyframes welcome-leave {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes welcome-sink {
+    to {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+    }
+  }
+
+  @keyframes scene-in {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+
+  @keyframes step-from-right {
+    from {
+      opacity: 0;
+      transform: translateX(1.25rem);
+    }
+  }
+
+  @keyframes step-from-left {
+    from {
+      opacity: 0;
+      transform: translateX(-1.25rem);
+    }
+  }
+}
