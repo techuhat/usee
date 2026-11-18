@@ -124,6 +124,6 @@ Status: **Done**; **Partial**; **Next**, buildable without an open decision; **L
 
 ## Order
 
-1. Finish Phase 7: build the release FFmpeg runtime (ADR-008, ADR-012) and publish releases (docs/release.md).
+1. Finish Phase 7: CI builds and publishes releases since v0.1.0, with the FFmpeg runtime ADR-012 accepted; signing through SignPath and update metadata follow (docs/release.md).
 2. Then, in this order: system audio; the image background in the Canvas panel, with blur; annotations (shapes, opacity, rotation, callout, magnifier, spotlight, movement, polygon editing); cursor styles, idle hiding and click sounds; per-clip volume and background music; more export sizes and frame rates, and GIF; named presets; crop and inset; importing a video; watermark.
 3. Each "Decision first" feature gets its own ADR, with a privacy or licence review and a benchmark and maintenance owner, before it is built: webcam and layouts; features that read keystrokes; captions and silence removal; noise reduction; device frames; phones; sharing; macOS.

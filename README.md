@@ -11,7 +11,8 @@ smooths the cursor, moves the camera in 3D and sets the picture on a background.
 Built for developers who record demos, tutorials and bug reports.
 
 [![CI](https://github.com/techuhat/usee/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/techuhat/usee/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-ffb23e?labelColor=232a45)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/techuhat/usee?include_prereleases&label=release&color=ffb23e&labelColor=232a45)](https://github.com/techuhat/usee/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-a6aecb?labelColor=232a45)](LICENSE)
 [![Windows 10 and 11](https://img.shields.io/badge/Windows-10_%7C_11-5fd3e8?labelColor=232a45)](#-build-and-run)
 [![Pull requests welcome](https://img.shields.io/badge/PRs-welcome-dc3045?labelColor=232a45)](CONTRIBUTING.md)
 
@@ -19,8 +20,12 @@ Built for developers who record demos, tutorials and bug reports.
 
 ![The usee editor: a recording turned in 3D over a peach gradient, the 3D camera panel with its five moves, and the timeline below](docs/images/editor.png)
 
+## ⬇️ Download
+
+Get the installer from the [latest release](https://github.com/techuhat/usee/releases/latest), for Windows 10 (version 2004 or later) and Windows 11, x64. It installs for your user alone, with no administrator rights.
+
 > [!NOTE]
-> usee has no release yet. It builds and runs from source on Windows 10 (version 2004 or later) and Windows 11, x64. The first installer ships once the export runtime is built and published.
+> The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. Signed builds follow once usee joins the SignPath Foundation's programme for open-source projects.
 
 ## 🎬 What it does
 
