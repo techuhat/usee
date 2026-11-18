@@ -36,6 +36,7 @@ import {
 import type { FfmpegCapabilities } from './ffmpeg-capabilities';
 import {
   createFfmpegExportWorker,
+  runFfmpegProcess,
   type FfmpegProcessRequest,
   type FfmpegProcessRunner,
 } from './ffmpeg-export-worker';
@@ -495,5 +496,26 @@ describe('FFmpeg export worker', () => {
       ),
     ).resolves.toMatchObject({ ok: false, error: { code: 'export.validation-failed' } });
     expect(context.published).toHaveLength(0);
+  });
+});
+
+describe('the FFmpeg process', () => {
+  it('reports FFmpeg leaving before it has read every frame, without crashing on the broken pipe', async () => {
+    // Like an FFmpeg that cannot open the GPU's encoder (GitHub's runner has none): it exits at once.
+    const result = await runFfmpegProcess({
+      executablePath: process.execPath,
+      arguments: ['-e', 'process.exit(3)'],
+      workingDirectory: tmpdir(),
+      cancellation: cancellation(),
+      correlationId: asCorrelationId('broken-pipe'),
+      async streamInput(write) {
+        const frame = new Uint8Array(4 * 1024 * 1024);
+        for (let index = 0; index < 32; index += 1) {
+          await write(frame);
+        }
+        return ok(undefined);
+      },
+    });
+    expect(result.ok).toBe(false);
   });
 });

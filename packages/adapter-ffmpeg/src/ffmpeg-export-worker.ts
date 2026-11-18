@@ -260,7 +260,7 @@ async function sha256File(filePath: string): Promise<string> {
   return hash.digest('hex');
 }
 
-function runFfmpegProcess(request: FfmpegProcessRequest): Promise<Result<void>> {
+export function runFfmpegProcess(request: FfmpegProcessRequest): Promise<Result<void>> {
   return new Promise((resolve) => {
     if (request.cancellation.isCancellationRequested) {
       resolve(failure('export.canceled', request.correlationId));
@@ -293,6 +293,14 @@ function runFfmpegProcess(request: FfmpegProcessRequest): Promise<Result<void>> 
       return;
     }
 
+    // FFmpeg can leave before it has read every frame: when it cannot open the GPU's
+    // encoder (the software one is tried next), or a job is cancelled. The write in
+    // progress then fails and reports it, and the stream emits the same failure as an
+    // event, which, unheard, would end the whole process as an uncaught exception.
+    let inputBroken = false;
+    child.stdin?.on('error', () => {
+      inputBroken = true;
+    });
     let stderrBytes = 0;
     let outputExceeded = false;
     let settled = false;
@@ -315,7 +323,7 @@ function runFfmpegProcess(request: FfmpegProcessRequest): Promise<Result<void>> 
     const write = (bytes: Uint8Array) =>
       new Promise<void>((done, reject) => {
         const stdin = child.stdin;
-        if (stdin === null || stdin.destroyed) {
+        if (stdin === null || stdin.destroyed || inputBroken) {
           reject(new Error('FFmpeg input closed.'));
           return;
         }
