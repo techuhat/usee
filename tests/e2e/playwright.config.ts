@@ -11,6 +11,7 @@ export default defineConfig({
   workers: 1,
   timeout: 60_000,
   retries: 0,
-  reporter: [['list']],
+  // On GitHub, each failure also becomes an annotation, which anyone can read without signing in.
+  reporter: process.env['CI'] === 'true' ? [['list'], ['github']] : [['list']],
   outputDir: '../../test-results/e2e',
 });
