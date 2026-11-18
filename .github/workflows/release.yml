@@ -69,14 +69,11 @@ jobs:
       - name: Installer
         run: npm run package 2>&1 | tee -a release.log
 
-      # The export specs run against the runtime just built, so a release never ships an
-      # FFmpeg that cannot export. The page needs a screen larger than the runner's 1024 x 768.
-      - name: Screen at 1920 x 1080
-        shell: powershell
-        run: Set-DisplayResolution -Width 1920 -Height 1080 -Force -ErrorAction Stop
-
-      - name: Export, end to end, with that runtime
-        run: npx playwright test --config tests/e2e/playwright.config.ts export 2>&1 | tee -a release.log
+      # The export worker's own commands, against the runtime just built, so a release never
+      # ships an FFmpeg that cannot export: every component found, raw frames to an MP4 that
+      # decodes cleanly, and a damaged MP4 refused.
+      - name: The runtime exports
+        run: npx vitest run tests/integration/ffmpeg-export.test.ts 2>&1 | tee -a release.log
 
       - name: Publish the release
         if: startsWith(github.ref, 'refs/tags/')
