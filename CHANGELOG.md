@@ -4,7 +4,9 @@ Notable changes to usee are listed here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
-The source has been public since 2026-11-18. No installer has been released yet.
+## [0.1.0] - 2026-11-18
+
+The first release: usee's first installer, built from the public source by GitHub Actions.
 
 ### Added
 
@@ -15,7 +17,9 @@ The source has been public since 2026-11-18. No installer has been released yet.
 - Canvas styling: solid, gradient and blurred-recording backgrounds, padding, rounded corners, shadow, aspect ratios and motion blur.
 - Annotations (words, arrows and boxes) and privacy blur.
 - A timeline with split, trim, ripple delete, speed changes, undo and redo, and each clip's frames and waveform.
-- MP4 export at 1080p30, 1080p60, 1440p30 and 4K30, with an FFmpeg runtime built from source.
-- A Windows installer build, unsigned for now.
+- MP4 export at 1080p30, 1080p60, 1440p30 and 4K30, with an FFmpeg runtime built from its official source.
+- A welcome tour on the first start, a short intro as the window opens, and an icon drawn for every size Windows shows.
+- A per-user Windows installer, not signed yet.
 
-[Unreleased]: https://github.com/techuhat/usee/commits/main
+[Unreleased]: https://github.com/techuhat/usee/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/techuhat/usee/releases/tag/v0.1.0

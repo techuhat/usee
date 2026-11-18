@@ -1,0 +1,102 @@
+name: Release
+
+# A tag v<version> builds the installer with the FFmpeg runtime ADR-012 accepted and publishes
+# it as a GitHub pre-release, beside FFmpeg's source and the runtime's build.json
+# (docs/release.md). A push to the release-check branch builds the same and publishes nothing.
+on:
+  push:
+    tags: ['v*']
+    branches: [release-check]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Installer with FFmpeg, published on a tag
+    runs-on: windows-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: The tag names the app's version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          version=$(node -p "require('./apps/desktop/package.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error title=Version::The tag $GITHUB_REF_NAME does not name the app's version, $version."
+            exit 1
+          fi
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Native recorder host (build and unit tests)
+        run: node scripts/build-native.mjs 2>&1 | tee -a release.log
+
+      - name: FFmpeg's source (the build checks its pinned SHA-256)
+        run: |
+          mkdir -p build/ffmpeg-source
+          curl -fsSL --retry 3 -o build/ffmpeg-source/ffmpeg-9.0.2.tar.xz \
+            https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz
+
+      - name: make and nasm for FFmpeg's configure, in the runner's MSYS2
+        run: C:/msys64/usr/bin/bash.exe -lc 'pacman -Sy --noconfirm --needed make nasm' 2>&1 | tee -a release.log
+
+      - name: FFmpeg runtime, under the review ADR-012 records
+        run: >-
+          node scripts/build-ffmpeg.mjs --sources build/ffmpeg-source --msys2 C:/msys64
+          --review-reference docs/decisions/ADR-012-ffmpeg-release.md
+          --reviewed-at 2026-11-18T00:00:00Z 2>&1 | tee -a release.log
+
+      - name: The app trusts that runtime
+        run: node scripts/trust-ffmpeg-runtime.mjs
+
+      - name: Installer
+        run: npm run package 2>&1 | tee -a release.log
+
+      - name: Publish the release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v heading="## [$version]" \
+            'index($0, heading) == 1 { on = 1; next } on && /^(## )?\[/ { exit } on { print }' \
+            CHANGELOG.md > notes.md
+          cat >> notes.md <<EOF
+
+          ### Download
+
+          - \`usee-$version-setup.exe\` installs usee for one user on Windows 10 (version 2004 or later) or 11, x64. It is not signed yet, so Windows SmartScreen may warn the first time: choose **More info**, then **Run anyway**.
+          - \`ffmpeg-9.0.2.tar.xz\` and \`build.json\` are the source of the FFmpeg usee exports with and how it was built, under the LGPL 2.1 or later ([ADR-012](https://github.com/techuhat/usee/blob/main/docs/decisions/ADR-012-ffmpeg-release.md)).
+          EOF
+          gh release create "$GITHUB_REF_NAME" --prerelease --title "usee $version" \
+            --notes-file notes.md \
+            "build/release/usee-$version-setup.exe" \
+            build/ffmpeg-source/ffmpeg-9.0.2.tar.xz \
+            build/ffmpeg/resources/ffmpeg/build.json
+
+      # Reading a job's log takes a sign-in; an annotation does not (docs/testing.md).
+      - name: Show the end of the log
+        if: failure()
+        run: |
+          [ -f release.log ] || exit 0
+          tail -n 40 release.log \
+            | sed -e 's/\x1b\[[0-9;]*m//g' -e 's/\r//g' -e 's/%/%25/g' \
+            | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/%0A/g' \
+            | sed -e 's/^/::error title=End of the log::/'
