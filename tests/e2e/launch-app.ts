@@ -57,6 +57,12 @@ export async function launchDesktopApp(
     args: ['--force-device-scale-factor=1', desktopDirectory],
     env: environment,
   });
+  // The page the preview goldens were made at, on every machine: the window's frame, drawn
+  // at the display's own scaling, would otherwise leave more or less of 1360 x 900 to it.
+  await app.firstWindow();
+  await app.evaluate(({ BrowserWindow }) => {
+    BrowserWindow.getAllWindows()[0]?.setContentSize(1328, 786);
+  });
   // An app that dies mid-test says why: its exit and the end of its stderr go to the test output.
   const child = app.process();
   let stderr = '';
