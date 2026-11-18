@@ -17,6 +17,10 @@ jobs:
     name: Native host, quality gates and E2E
     runs-on: windows-latest
     timeout-minutes: 45
+    defaults:
+      run:
+        # Git Bash, with pipefail, so a step piped through tee still fails when its command does.
+        shell: bash
     steps:
       # Actions are pinned by commit; Dependabot proposes updates (.github/dependabot.yml).
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
@@ -32,13 +36,24 @@ jobs:
       # First, so the host integration tests and the E2E suite run against it
       # instead of skipping. Finds Visual Studio, builds with /W4 /WX, runs CTest.
       - name: Native recorder host (build and unit tests)
-        run: node scripts/build-native.mjs
+        run: node scripts/build-native.mjs 2>&1 | tee -a ci.log
 
       - name: Quality gates (format, lint, boundaries, typecheck, tests, build)
-        run: npm run check
+        run: npm run check 2>&1 | tee -a ci.log
 
       - name: End-to-end tests against the built app
-        run: npx playwright test --config tests/e2e/playwright.config.ts
+        run: npx playwright test --config tests/e2e/playwright.config.ts 2>&1 | tee -a ci.log
+
+      # Reading a job's log takes a sign-in; an annotation does not. The end of the
+      # log goes into one, so anyone can see why a run failed.
+      - name: Show the end of the log
+        if: failure()
+        run: |
+          [ -f ci.log ] || exit 0
+          tail -n 40 ci.log \
+            | sed -e 's/\x1b\[[0-9;]*m//g' -e 's/\r//g' -e 's/%/%25/g' \
+            | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/%0A/g' \
+            | sed -e 's/^/::error title=End of the log::/'
 
       - name: Keep E2E traces when a run fails
         if: failure()

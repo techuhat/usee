@@ -24,7 +24,7 @@
 
 Every pull request runs formatting, lint, import/dependency boundary checks, TypeScript typecheck, unit tests, and a production renderer/main build. Main-branch or release workflows also run package smoke tests. Native integration, export, visual, and performance suites run on appropriate Windows runners before a release candidate is approved.
 
-`npm run check` runs every pull-request gate locally in the same order as CI (`.github/workflows/ci.yml`). CI first builds the native recorder host and runs its tests, so the host's integration tests and the E2E suite, which skip without it, run against it; after the gates it runs the E2E suite against the built app. GitHub's Windows runners have no GPU, so the host's Direct3D device falls back to WARP there.
+`npm run check` runs every pull-request gate locally in the same order as CI (`.github/workflows/ci.yml`). CI first builds the native recorder host and runs its tests, so the host's integration tests and the E2E suite, which skip without it, run against it; after the gates it runs the E2E suite against the built app. GitHub's Windows runners have no GPU, so the host's Direct3D device falls back to WARP there. Reading a run's log takes a GitHub sign-in, so a failed run also posts the last 40 lines of its log as an annotation, which anyone can read.
 
 ## Where tests live
 
