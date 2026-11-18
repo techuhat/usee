@@ -41,6 +41,20 @@ jobs:
       - name: Quality gates (format, lint, boundaries, typecheck, tests, build)
         run: npm run check 2>&1 | tee -a ci.log
 
+      # The runner's screen starts at 1024 x 768, which shrinks the app's 1360 x 900 window
+      # and the preview with it; the preview goldens were made at full size.
+      - name: Screen at 1920 x 1080
+        shell: powershell
+        run: |
+          try {
+            Set-DisplayResolution -Width 1920 -Height 1080 -Force -ErrorAction Stop
+          } catch {
+            Write-Output "::error title=Screen resolution::$($_.Exception.Message)"
+            exit 1
+          }
+          $screen = Get-CimInstance Win32_VideoController | Select-Object -First 1
+          Write-Output "::notice title=Screen resolution::$($screen.CurrentHorizontalResolution) x $($screen.CurrentVerticalResolution)"
+
       - name: End-to-end tests against the built app
         run: npx playwright test --config tests/e2e/playwright.config.ts 2>&1 | tee -a ci.log
 
