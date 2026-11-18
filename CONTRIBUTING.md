@@ -63,7 +63,7 @@ The host integration tests and the end-to-end tests skip when the recorder host 
 | `npm test`                 | Unit and integration tests (Vitest), against package sources          |
 | `npm run test:e2e`         | Builds, then drives the real Electron app with Playwright             |
 | `npm run typecheck`        | `tsc -b` over packages, the desktop app and tests                     |
-| `npm run lint`             | Type-aware ESLint                                                     |
+| `npm run lint`             | Builds the packages' type declarations, then type-aware ESLint        |
 | `npm run check:boundaries` | Enforces the import rules in `docs/repository-structure.md`           |
 | `npm run build`            | Production build of the packages and the desktop app                  |
 | `npm start`                | Runs the last production build                                        |
