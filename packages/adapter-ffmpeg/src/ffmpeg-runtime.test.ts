@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, realpath, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -31,7 +31,9 @@ async function withRuntimeFiles(
   executableBytes: Buffer,
   run: (resources: string, manifestBytes: Buffer, trustedHash: string) => Promise<void>,
 ) {
-  const resources = await mkdtemp(path.join(os.tmpdir(), 'usee-ffmpeg-test-'));
+  // Canonical, as the runtime check resolves the executable: the temporary folder may be
+  // named by an 8.3 short name, as on GitHub's Windows runner (C:\Users\RUNNER~1\...).
+  const resources = await realpath(await mkdtemp(path.join(os.tmpdir(), 'usee-ffmpeg-test-')));
   const directory = path.join(resources, 'ffmpeg');
   await mkdir(directory);
   await writeFile(path.join(directory, 'ffmpeg.exe'), executableBytes);

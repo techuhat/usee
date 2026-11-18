@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, rm, utimes, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, realpath, rm, utimes, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -27,7 +27,9 @@ import { createProjectRepository, persistMigration } from './project-repository'
 let projectsRoot = '';
 
 beforeEach(async () => {
-  projectsRoot = await mkdtemp(path.join(tmpdir(), 'project-repository-'));
+  // Canonical, as the repository resolves every path: the temporary folder may be named
+  // by an 8.3 short name, as on GitHub's Windows runner (C:\Users\RUNNER~1\...).
+  projectsRoot = await realpath(await mkdtemp(path.join(tmpdir(), 'project-repository-')));
 });
 
 afterEach(async () => {
