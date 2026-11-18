@@ -26,7 +26,7 @@ FFmpeg binary provenance, checksum, enabled components, source availability obli
 
 ## Upgrade practice
 
-- Dependabot (`.github/dependabot.yml`) opens updates monthly: npm minor and patch versions in one group, Electron and electron-builder each on their own, and the CI actions, which the workflow pins by commit. Electron, FFmpeg, native SDK, and build-chain updates require a focused smoke/security review.
+- Dependabot (`.github/dependabot.yml`) opens updates monthly: npm minor and patch versions in one group, Electron and electron-builder each on their own, and the CI actions, which the workflow pins by commit. `@types/node` keeps to the Node major usee runs on (22), so its major updates are ignored. Electron, FFmpeg, native SDK, and build-chain updates require a focused smoke/security review.
 - Lockfile changes are reviewed with package changes.
 - New Electron/native packages require supply-chain and security review.
 - Optional AI/cloud packages must live behind an application port and feature flag; they cannot become a renderer-global dependency.
