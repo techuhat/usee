@@ -28,6 +28,7 @@ export function createMainWindow(
     minHeight: 600,
     show: false,
     title: 'usee',
+    ...(environment.windowIcon === undefined ? {} : { icon: environment.windowIcon }),
     backgroundColor: '#10131a',
     webPreferences: rendererWebPreferences(environment),
   });

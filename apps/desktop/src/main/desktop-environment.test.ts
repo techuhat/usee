@@ -41,7 +41,24 @@ describe('resolveDesktopEnvironment', () => {
       trustedOrigins: ['app://renderer'],
       rendererRoot: path.join(appPath, 'dist', 'renderer'),
       preloadPath: path.join(appPath, 'dist', 'preload', 'preload.cjs'),
+      windowIcon: path.join(appPath, 'build-resources', 'icon.ico'),
     });
+  });
+
+  it("gives an unpackaged window usee's icon; a packaged one shows its executable's", () => {
+    const development = resolveDesktopEnvironment({
+      isPackaged: false,
+      appPath,
+      rendererUrlOverride: 'http://127.0.0.1:5173',
+    });
+    expect(development.windowIcon).toBe(path.join(appPath, 'build-resources', 'icon.ico'));
+
+    const packaged = resolveDesktopEnvironment({
+      isPackaged: true,
+      appPath,
+      rendererUrlOverride: undefined,
+    });
+    expect(packaged.windowIcon).toBeUndefined();
   });
 
   it('uses a loopback dev server only for unpackaged builds', () => {

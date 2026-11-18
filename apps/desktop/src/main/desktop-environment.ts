@@ -11,6 +11,8 @@ export interface DesktopEnvironment {
   readonly rendererRoot: string;
   readonly preloadPath: string;
   readonly devServerOrigin?: string;
+  /** usee's icon for an unpackaged window; a packaged one shows its executable's. */
+  readonly windowIcon?: string;
 }
 
 export interface DesktopEnvironmentInput {
@@ -51,6 +53,10 @@ export function parseDevServerOrigin(value: string | undefined): string | undefi
 export function resolveDesktopEnvironment(input: DesktopEnvironmentInput): DesktopEnvironment {
   const rendererRoot = path.join(input.appPath, 'dist', 'renderer');
   const preloadPath = path.join(input.appPath, 'dist', 'preload', 'preload.cjs');
+  // Unpackaged, the executable is Electron's own, with Electron's icon.
+  const icon = input.isPackaged
+    ? {}
+    : { windowIcon: path.join(input.appPath, 'build-resources', 'icon.ico') };
 
   // A packaged build always serves its own bundled renderer.
   const devServerOrigin = input.isPackaged
@@ -65,6 +71,7 @@ export function resolveDesktopEnvironment(input: DesktopEnvironmentInput): Deskt
       rendererRoot,
       preloadPath,
       devServerOrigin,
+      ...icon,
     };
   }
 
@@ -74,5 +81,6 @@ export function resolveDesktopEnvironment(input: DesktopEnvironmentInput): Deskt
     trustedOrigins: [RENDERER_ORIGIN],
     rendererRoot,
     preloadPath,
+    ...icon,
   };
 }

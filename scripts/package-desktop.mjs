@@ -169,8 +169,11 @@ await build({
           ]
         : []),
     ],
-    win: { icon: path.join(desktop, 'build-resources', 'icon.png') },
+    // Drawn for every size Windows shows, by scripts/build-icon.mjs.
+    win: { icon: path.join(desktop, 'build-resources', 'icon.ico') },
     nsis: {
+      installerIcon: path.join(desktop, 'build-resources', 'icon.ico'),
+      uninstallerIcon: path.join(desktop, 'build-resources', 'icon.ico'),
       oneClick: false,
       perMachine: false,
       allowToChangeInstallationDirectory: true,
