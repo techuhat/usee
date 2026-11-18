@@ -79,8 +79,10 @@ TEST(frame_store_keeps_only_the_region_of_each_frame) {
 
 TEST(frame_store_scales_the_region_alone) {
   const D3DContext d3d = create_d3d_context();
-  if (d3d.is_software_adapter) {
-    return;  // WARP has no video processor to scale with
+  // WARP has no video processor to scale with, and neither has the software adapter a
+  // machine without a GPU, such as GitHub's Windows runner, offers as its hardware one.
+  if (!d3d.device.try_as<ID3D11VideoDevice>() || !d3d.context.try_as<ID3D11VideoContext>()) {
+    return;
   }
   // Red on the left half, blue on the right: a scaled right half has no red in it.
   std::vector<std::uint32_t> halves(64 * 32);
