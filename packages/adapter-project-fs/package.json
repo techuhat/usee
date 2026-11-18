@@ -1,0 +1,29 @@
+{
+  "name": "@usee/adapter-project-fs",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Filesystem adapter: staged recordings, journal recovery and atomic project bundles.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json"
+  },
+  "dependencies": {
+    "@usee/application": "*",
+    "@usee/contracts": "*",
+    "@usee/domain": "*",
+    "@usee/project-format": "*"
+  }
+}

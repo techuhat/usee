@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "tsBuildInfoFile": "../../node_modules/.tmp/adapter-ffmpeg.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../contracts/tsconfig.build.json" },
+    { "path": "../domain/tsconfig.build.json" }
+  ]
+}

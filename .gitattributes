@@ -1,0 +1,12 @@
+# Store text with LF in the repository and check it out with LF on every OS,
+# matching .editorconfig and Prettier. Windows batch files keep CRLF.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.mp4 binary
+*.m4a binary
+*.wav binary

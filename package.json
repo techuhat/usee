@@ -1,0 +1,54 @@
+{
+  "name": "usee-workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Workspace for a modular, Windows-first desktop screen-recording application.",
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22.13.0",
+    "npm": ">=10.0.0"
+  },
+  "workspaces": [
+    "packages/contracts",
+    "packages/domain",
+    "packages/application",
+    "packages/project-format",
+    "packages/adapter-recorder-host",
+    "packages/adapter-project-fs",
+    "packages/adapter-ffmpeg",
+    "apps/desktop"
+  ],
+  "scripts": {
+    "build": "npm run check:boundaries && npm run build:packages && npm run build -w @usee/desktop",
+    "build:packages": "tsc -b tsconfig.build.json",
+    "check": "npm run format:check && npm run lint && npm run check:boundaries && npm run typecheck && npm run test && npm run build",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "dev": "npm run build:packages && npm run dev -w @usee/desktop",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "start": "npm run start -w @usee/desktop",
+    "test": "vitest run",
+    "test:e2e": "npm run build && playwright test --config tests/e2e/playwright.config.ts",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b tsconfig.json",
+    "build:native": "node scripts/build-native.mjs",
+    "build:ffmpeg": "node scripts/build-ffmpeg.mjs",
+    "package": "npm run build && node scripts/package-desktop.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.0.5",
+    "electron-builder": "26.18.0",
+    "eslint": "10.13.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2",
+    "vitest": "5.0.5"
+  }
+}

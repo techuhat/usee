@@ -1,0 +1,27 @@
+{
+  "name": "@usee/adapter-recorder-host",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Launches, authenticates and talks to the native recorder host over its named pipe.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json"
+  },
+  "dependencies": {
+    "@usee/application": "*",
+    "@usee/contracts": "*"
+  }
+}

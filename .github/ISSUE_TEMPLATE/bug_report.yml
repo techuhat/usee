@@ -1,0 +1,70 @@
+name: Bug report
+description: Something in usee does not work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. Please search the [open issues](https://github.com/techuhat/usee/issues) first, in case it is already there.
+
+        Found a security problem? Please do not file it here. Follow [SECURITY.md](https://github.com/techuhat/usee/blob/main/SECURITY.md) instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Record one window at 60 fps
+        2. Add a 3D zoom at 0:02
+        3. Export at 1080p60
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where is the problem?
+      options:
+        - Recording
+        - Editor or timeline
+        - Effects (zoom, 3D camera, cursor, canvas, annotations)
+        - Export
+        - Installing or starting usee
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: usee version or commit
+      description: The version is at the bottom of the sidebar. If you built usee from source, give the commit (`git rev-parse --short HEAD`).
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 24H2
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: Graphics card
+      placeholder: NVIDIA GeForce RTX 3060
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: The lines of `%APPDATA%\usee\logs\main.ndjson` from around the problem. The log holds no pictures, sound, window titles or keystrokes, and it shows your user folder as `%USERPROFILE%`.
+      render: text
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Screenshots or a short recording help a lot. Check that they show nothing private first.

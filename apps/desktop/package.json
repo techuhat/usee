@@ -1,0 +1,43 @@
+{
+  "name": "@usee/desktop",
+  "productName": "usee",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Electron shell and React renderer for usee.",
+  "type": "module",
+  "main": "dist/main/main.cjs",
+  "scripts": {
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build:main": "esbuild src/main/main.ts --bundle --platform=node --target=node22 --format=cjs --external:electron --sourcemap --outfile=dist/main/main.cjs",
+    "build:preload": "esbuild src/preload/index.ts --bundle --minify --platform=node --target=node22 --format=cjs --external:electron --sourcemap --outfile=dist/preload/preload.cjs",
+    "build:renderer": "vite build",
+    "dev": "concurrently -k -n renderer,electron \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:electron": "npm run build:main && npm run build:preload && wait-on tcp:127.0.0.1:5173 && cross-env ELECTRON_RENDERER_URL=http://127.0.0.1:5173 node scripts/run-electron.mjs .",
+    "dev:renderer": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "start": "node scripts/run-electron.mjs .",
+    "typecheck": "tsc -b tsconfig.json"
+  },
+  "dependencies": {
+    "@usee/adapter-ffmpeg": "*",
+    "@usee/adapter-project-fs": "*",
+    "@usee/adapter-recorder-host": "*",
+    "@usee/application": "*",
+    "@usee/contracts": "*",
+    "@usee/domain": "*",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zustand": "5.0.15"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "concurrently": "10.0.6",
+    "cross-env": "10.1.0",
+    "electron": "44.9.3",
+    "esbuild": "0.28.2",
+    "vite": "8.3.4",
+    "wait-on": "9.5.1"
+  }
+}

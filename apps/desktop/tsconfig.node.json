@@ -1,0 +1,33 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "tsBuildInfoFile": "../../node_modules/.tmp/desktop-node.tsbuildinfo"
+  },
+  "include": ["src/main/**/*.ts", "src/preload/**/*.ts", "vite.config.ts"],
+  "references": [
+    {
+      "path": "../../packages/contracts/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/domain/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/application/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/project-format/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/adapter-recorder-host/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/adapter-project-fs/tsconfig.build.json"
+    },
+    {
+      "path": "../../packages/adapter-ffmpeg/tsconfig.build.json"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest something usee should do.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please read the [roadmap](https://github.com/techuhat/usee/blob/main/docs/roadmap.md) first. It lists what is planned and in what order.
+
+        Features that read keystrokes, use the webcam or send anything off the computer need a privacy review, recorded as an ADR, before they are built, so they take longer.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The video you are making, and what gets in the way today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: How you picture it working in usee.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do instead today
+      description: Another app, a workaround, or nothing at all.
