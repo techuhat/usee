@@ -90,6 +90,7 @@ jobs:
 
           - \`usee-$version-setup.exe\` installs usee for one user on Windows 10 (version 2004 or later) or 11, x64. It is not signed yet, so Windows SmartScreen may warn the first time: choose **More info**, then **Run anyway**.
           - \`ffmpeg-9.0.2.tar.xz\` and \`build.json\` are the source of the FFmpeg usee exports with and how it was built, under the LGPL 2.1 or later ([ADR-012](https://github.com/techuhat/usee/blob/main/docs/decisions/ADR-012-ffmpeg-release.md)).
+          - [Code signing policy](https://github.com/techuhat/usee#-code-signing-policy)
           EOF
           gh release create "$GITHUB_REF_NAME" --prerelease --title "usee $version" \
             --notes-file notes.md \

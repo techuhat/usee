@@ -25,7 +25,7 @@ Built for developers who record demos, tutorials and bug reports.
 Get the installer from the [latest release](https://github.com/techuhat/usee/releases/latest), for Windows 10 (version 2004 or later) and Windows 11, x64. It installs for your user alone, with no administrator rights.
 
 > [!NOTE]
-> The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. Signed builds follow once usee joins the SignPath Foundation's programme for open-source projects.
+> The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. Signed builds follow once usee joins the SignPath Foundation's programme for open-source projects ([code signing policy](#-code-signing-policy)).
 
 ## 🎬 What it does
 
@@ -134,6 +134,14 @@ The Electron app holds the interface, the editing and the export. Capture runs i
 ## 🤝 Contributing
 
 Bug reports, ideas and pull requests are all welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers the setup, the checks to run and how the docs work as the specification. Features marked **Next** in the [roadmap](docs/roadmap.md) are good places to start. Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## 🔏 Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org). usee has applied to the SignPath Foundation's programme for open-source projects; until it is accepted, releases are unsigned.
+
+- **Builds.** Every signed file is built by [`release.yml`](.github/workflows/release.yml) on GitHub Actions from this repository's public source, and each release is approved by hand before it is signed. Only usee's own files are signed: the installer, `usee.exe` and the recorder host. `ffmpeg.exe`, built from FFmpeg's official source by the same workflow, ships unsigned inside the signed installer.
+- **Team roles.** Committers and reviewers: [techuhat](https://github.com/techuhat). Approvers, who approve every signing request: [techuhat](https://github.com/techuhat). Changes from anyone else are reviewed before they are merged.
+- **Privacy.** This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
 
 ## 🛡️ Security
 
