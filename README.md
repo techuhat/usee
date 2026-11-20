@@ -22,7 +22,7 @@ Built for developers who record demos, tutorials and bug reports.
 
 ## ⬇️ Download
 
-Get the installer from the [latest release](https://github.com/techuhat/usee/releases/latest), for Windows 10 (version 2004 or later) and Windows 11, x64. It installs for your user alone, with no administrator rights.
+Get the installer from the [latest release](https://github.com/techuhat/usee/releases/latest), for Windows 10 (version 2004 or later) and Windows 11, x64. It installs for your user alone, with no administrator rights. The website, [techuhat.github.io/usee](https://techuhat.github.io/usee/), shows what usee does.
 
 > [!NOTE]
 > The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. Signed builds follow once usee joins the SignPath Foundation's programme for open-source projects ([code signing policy](#-code-signing-policy)).

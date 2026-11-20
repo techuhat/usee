@@ -1,0 +1,1270 @@
+/*
+ * usee's website. One mark runs the system: the plate's corner is the one radius,
+ * the lens ring is the mask and the loupe, the amber tally light is the button,
+ * the bullet and the hero's stage. Colours and type are the app's own.
+ */
+:root {
+  --ground: #0d1020;
+  --ground-2: #12162a;
+  --panel: #191e33;
+  --raised: #232a45;
+  --ink: #eef1fb;
+  --muted: #a6aecb;
+  --accent: #ffb23e;
+  --accent-hover: #ffc366;
+  --accent-ink: #1d1404;
+  --record: #dc3045;
+  --depth: #5fd3e8;
+
+  --text:
+    'Segoe UI Variable Text', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system,
+    'Helvetica Neue', Arial, sans-serif;
+  --display:
+    'Segoe UI Variable Display', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system,
+    'Helvetica Neue', Arial, sans-serif;
+
+  /* Five sizes do all the work. */
+  --xl: clamp(48px, 5.2vw, 84px);
+  --l: clamp(30px, 3vw, 40px);
+  --m: 22px;
+  --body: 18px;
+  --small: 15px;
+
+  --margin: 40px;
+  --radius: 28px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ground);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 400 var(--body) / 1.55 var(--text);
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: var(--margin);
+  top: 12px;
+  z-index: 20;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 10px 18px;
+}
+
+.note {
+  color: var(--muted);
+  font-size: var(--small);
+}
+
+/* The mark, as the app draws it. */
+.mark-plate {
+  fill: var(--raised);
+}
+
+.mark-glass {
+  fill: var(--ground);
+}
+
+.mark-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.mark-light {
+  fill: var(--accent);
+}
+
+/* The one button: round as the tally light. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0 30px;
+  font: 650 var(--body) / 1 var(--text);
+  text-decoration: none;
+  transition:
+    background-color 160ms,
+    transform 160ms var(--ease);
+}
+
+.button:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button-small {
+  min-height: 42px;
+  padding: 0 20px;
+  font-size: var(--small);
+}
+
+/* Navigation: the wordmark, three links, one action. */
+.nav {
+  position: absolute;
+  top: 28px;
+  left: var(--margin);
+  right: var(--margin);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 650 26px / 1 var(--display);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.mark {
+  width: 38px;
+  height: 38px;
+}
+
+.nav nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: var(--small);
+}
+
+.nav nav a:not(.button) {
+  text-decoration: none;
+}
+
+/* Hero: the headline on the ground, the editor on the tally light's stage. */
+.hero {
+  position: relative;
+  min-height: max(780px, 100svh);
+  overflow: hidden;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: min(50vw, 760px);
+  padding: 156px 0 0 var(--margin);
+}
+
+.hero h1 {
+  font-size: var(--xl);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.lead {
+  max-width: 40ch;
+  margin-top: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.hero-stage {
+  position: absolute;
+  left: 40vw;
+  top: 18svh;
+  z-index: 0;
+  width: 150vh;
+  height: 150vh;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero-shot {
+  position: absolute;
+  left: calc(40vw + 24vh);
+  top: calc(18svh + 24vh);
+  z-index: 1;
+  width: max(62vw, 760px);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius) 0 0 0;
+  background: var(--ground);
+}
+
+.hero-shot img {
+  width: 100%;
+  height: auto;
+}
+
+/* The camera, live: three frames of one recording behind usee's lens. */
+.camera {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 88svh;
+  background: var(--ground-2);
+}
+
+/* The radios stay in the page for the keyboard and screen readers; their labels are the tabs. */
+.shot-input {
+  position: absolute;
+  width: 1px; /* taste-skill-ignore: a visually hidden input, not a rule */
+  height: 1px; /* taste-skill-ignore: a visually hidden input, not a rule */
+  opacity: 0;
+}
+
+.plate {
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  width: calc(100% - 2 * var(--margin));
+  max-width: 720px;
+  aspect-ratio: 1;
+  margin: 56px 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--raised);
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 520ms var(--ease),
+    transform 900ms var(--ease);
+}
+
+#shot-wide:checked ~ .plate .frame-wide,
+#shot-zoom:checked ~ .plate .frame-zoom,
+#shot-turn:checked ~ .plate .frame-turn {
+  opacity: 1;
+  transform: none;
+}
+
+.lens {
+  position: absolute;
+  inset: 7%;
+  width: 86%;
+  height: 86%;
+  pointer-events: none;
+}
+
+.lens-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+}
+
+.lens-light {
+  fill: var(--accent);
+}
+
+.camera-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 56px;
+  padding: 80px var(--margin) 80px 0;
+}
+
+.shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 30px;
+}
+
+.shots label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 160ms;
+}
+
+.shots label::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--raised);
+  transition: background-color 200ms;
+}
+
+.shots label:hover {
+  color: var(--ink);
+}
+
+#shot-wide:checked ~ .camera-copy [for='shot-wide'],
+#shot-zoom:checked ~ .camera-copy [for='shot-zoom'],
+#shot-turn:checked ~ .camera-copy [for='shot-turn'] {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+#shot-wide:checked ~ .camera-copy [for='shot-wide']::before,
+#shot-zoom:checked ~ .camera-copy [for='shot-zoom']::before,
+#shot-turn:checked ~ .camera-copy [for='shot-turn']::before {
+  background: var(--accent);
+}
+
+#shot-wide:focus-visible ~ .camera-copy [for='shot-wide'],
+#shot-zoom:focus-visible ~ .camera-copy [for='shot-zoom'],
+#shot-turn:focus-visible ~ .camera-copy [for='shot-turn'] {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.camera h2 {
+  font-size: var(--l);
+}
+
+.camera-copy p {
+  max-width: 36ch;
+  margin-top: 26px;
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  border-radius: 999px;
+  background: var(--raised);
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    background-color 160ms,
+    transform 160ms var(--ease);
+}
+
+.cell:hover {
+  background: #2b3354;
+  color: var(--ink);
+}
+
+.cell:active {
+  transform: scale(0.98);
+}
+
+.cell-ink {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.cell-ink:hover {
+  background: #ffffff;
+  color: var(--ground);
+}
+
+/* The features: close-ups of the interface on one board. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: 104px;
+  gap: 8px;
+  padding: 10px;
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.tile-heading {
+  grid-column: span 6;
+  grid-row: span 2;
+  padding: 26px 28px;
+  background: var(--ground-2);
+}
+
+.tile-heading h2 {
+  max-width: 13ch;
+  font-size: var(--l);
+}
+
+.tile-keys,
+.tile-speed,
+.tile-cursor,
+.tile-blur {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.tile-video {
+  grid-column: span 6;
+  grid-row: span 4;
+  background: #05060d;
+}
+
+.tile-toggle,
+.tile-3d {
+  grid-column: span 3;
+  grid-row: span 4;
+}
+
+.tile-timeline {
+  grid-column: span 6;
+  grid-row: span 2;
+  background: var(--ground-2);
+}
+
+.tile-keys {
+  background: var(--raised);
+}
+
+.tile-speed {
+  background: var(--depth);
+  color: var(--ground);
+}
+
+.tile-cursor {
+  background: var(--record);
+  color: #ffffff;
+}
+
+.tile-3d,
+.tile-blur {
+  background: var(--raised);
+}
+
+.caption {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 20px;
+  font-size: var(--small);
+  line-height: 1.4;
+}
+
+.caption strong {
+  display: block;
+  font-size: var(--body);
+  font-weight: 650;
+}
+
+.tile-video .caption {
+  color: var(--ink);
+}
+
+/* A tile's picture fills it above the caption, which keeps the tile's own colour. */
+.tile-media {
+  position: absolute;
+  inset: 0 0 86px;
+  overflow: hidden;
+}
+
+.tile-media img,
+.tile-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile-media-left img {
+  object-position: left top;
+}
+
+/* Interface fragments, at three to four times their size, cropped by the tile. */
+.ui {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ui-keys {
+  gap: 0.25em;
+  font-size: 27px;
+}
+
+.ui-keys kbd {
+  border-radius: 0.24em;
+  background: var(--panel);
+  color: var(--ink);
+  padding: 0.08em 0.34em 0.14em;
+  font-family: var(--text);
+  font-size: 1em;
+  font-weight: 650;
+}
+
+.ui-keys span {
+  color: var(--muted);
+}
+
+.ui-speed {
+  top: -0.12em;
+  left: auto;
+  right: -0.06em;
+  font: 700 190px / 1 var(--display);
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-toggle {
+  top: 0.12em;
+  left: auto;
+  right: -0.42em;
+  font-size: 130px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2.2em;
+  height: 1.2em;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.switch span {
+  position: absolute;
+  top: 0.15em;
+  right: 0.15em;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  background: var(--accent-ink);
+}
+
+/* How it works: the progress bar of a recording, at page width. */
+.flow {
+  padding: 180px var(--margin) 160px;
+}
+
+.flow h2 {
+  font-size: var(--xl);
+  margin-bottom: 64px;
+}
+
+.bar {
+  display: flex;
+  gap: 6px;
+  height: 22vh;
+  min-height: 170px;
+  margin-bottom: 110px;
+}
+
+.stage {
+  position: relative;
+  min-width: 12%;
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.stage-count {
+  flex: 0 0 12%;
+  background: var(--record);
+  color: #ffffff;
+}
+
+.stage-record {
+  flex: 120 1 0;
+  background: var(--raised);
+}
+
+.stage-edit {
+  flex: 300 1 0;
+  background: var(--depth);
+  color: var(--ground);
+}
+
+.stage-export {
+  flex: 67 1 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.stage-time {
+  font-size: var(--m);
+  line-height: 1.15;
+}
+
+.stage p {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 0;
+  width: min(22ch, 100%);
+  color: var(--ink);
+  font-size: var(--body);
+  line-height: 1.4;
+}
+
+/* Privacy: a deep panel, the statement, and the welcome tour's picture in the lens. */
+.privacy {
+  padding: 20px;
+}
+
+.privacy-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62% 1fr;
+  min-height: 96svh;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.privacy-statement {
+  position: relative;
+  padding: 56px;
+}
+
+.privacy h2 {
+  max-width: 14ch;
+  font-size: var(--xl);
+  line-height: 1;
+}
+
+.privacy-lens {
+  position: absolute;
+  left: 56px;
+  bottom: -7vw;
+  width: 36vw;
+  aspect-ratio: 1;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--ground);
+}
+
+.privacy-lens img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 44%;
+  transform: scale(1.5);
+}
+
+.privacy-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 56px;
+  padding: 56px 56px 56px 0;
+}
+
+.privacy-text h3 {
+  font-size: var(--m);
+}
+
+.privacy-text p {
+  max-width: 34ch;
+  margin-top: 12px;
+}
+
+/* Developers. */
+.dev {
+  background: var(--ground-2);
+  padding: 170px var(--margin);
+}
+
+.dev h2 {
+  font-size: var(--xl);
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+pre {
+  margin: 0;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  background: var(--ground);
+  padding: 34px 36px;
+}
+
+code {
+  font:
+    var(--body) / 1.75 'Cascadia Code',
+    'Cascadia Mono',
+    Consolas,
+    ui-monospace,
+    monospace;
+  color: var(--ink);
+}
+
+.dev-text p {
+  max-width: 46ch;
+}
+
+.links {
+  display: grid;
+  gap: 12px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.links li::before {
+  content: '';
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Download: one sentence with a blank, then the details and the signing policy. */
+.get {
+  padding: 180px var(--margin) 150px;
+}
+
+.get-sentence {
+  max-width: 14ch;
+  font: 650 var(--xl) / 1.08 var(--display);
+  letter-spacing: -0.035em;
+}
+
+.get-blank,
+.get-button {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0 0.32em 0.06em;
+}
+
+.get-blank {
+  background: var(--raised);
+}
+
+.get-button {
+  background: var(--accent);
+  color: var(--accent-ink);
+  text-decoration: none;
+  transition:
+    background-color 160ms,
+    transform 160ms var(--ease);
+}
+
+.get-button:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
+.get-button:active {
+  transform: scale(0.98);
+}
+
+.get .note {
+  max-width: 62ch;
+  margin-top: 30px;
+  color: var(--ink);
+  font-size: var(--body);
+}
+
+.get-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 100px;
+}
+
+.get-grid h3 {
+  font-size: var(--m);
+}
+
+.get-grid p {
+  max-width: 52ch;
+  margin-top: 16px;
+}
+
+/* The close: the mark, built large. */
+.foot {
+  background: var(--panel);
+  padding: 90px var(--margin) 40px;
+}
+
+.foot-mark {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+}
+
+.foot-mark svg {
+  width: 34svh;
+  height: 34svh;
+}
+
+.foot-ring {
+  stroke-width: 20;
+}
+
+.foot-word {
+  font: 650 var(--xl) / 0.9 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.foot-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 240px));
+  gap: 32px;
+  margin-top: 64px;
+}
+
+.foot-links ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--small);
+}
+
+.foot-links a {
+  text-decoration: none;
+}
+
+.foot-last {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 64px;
+  color: var(--muted);
+  font-size: var(--small);
+}
+
+.foot-last p {
+  max-width: 70ch;
+}
+
+/* Motion: each part rises once as its section arrives; the hero's picture opens like a shutter. */
+.animate .rise {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 800ms var(--ease);
+}
+
+.animate .rise.in {
+  opacity: 1;
+  transform: none;
+}
+
+.animate .shutter img {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.12);
+  transition:
+    clip-path 1100ms cubic-bezier(0.65, 0, 0.35, 1),
+    transform 1400ms var(--ease);
+}
+
+.animate .shutter.in img {
+  clip-path: inset(0 0 0 0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .frame,
+  .button,
+  .cell,
+  .get-button {
+    transition: none;
+  }
+}
+
+/* Tablets and phones: one column, each section its own composition. */
+@media (max-width: 900px) {
+  :root {
+    --margin: 16px;
+    --xl: 11vw;
+    --body: 17px;
+  }
+
+  .nav nav a:not(.button) {
+    display: none;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .hero-copy {
+    max-width: none;
+    padding: 112px var(--margin) 0;
+  }
+
+  .hero-stage {
+    left: -20vw;
+    top: auto;
+    bottom: -55vw;
+    width: 160vw;
+    height: 160vw;
+  }
+
+  .hero-shot {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 150vw;
+    margin: 56px 0 0 var(--margin);
+  }
+
+  .camera {
+    grid-template-columns: 1fr;
+  }
+
+  .plate {
+    width: calc(100% - 2 * var(--margin));
+    margin: 40px auto 0;
+  }
+
+  .camera-copy {
+    gap: 32px;
+    padding: 28px var(--margin) 56px;
+  }
+
+  .board {
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 28vw;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .tile-heading,
+  .tile-keys,
+  .tile-video,
+  .tile-timeline,
+  .tile-blur {
+    grid-column: span 2;
+  }
+
+  .tile-heading {
+    grid-row: span 2;
+  }
+
+  .tile-video {
+    grid-row: span 3;
+  }
+
+  .tile-keys,
+  .tile-blur {
+    grid-row: span 2;
+  }
+
+  .tile-speed,
+  .tile-cursor,
+  .tile-toggle,
+  .tile-3d {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  .tile-timeline {
+    grid-row: span 2;
+  }
+
+  .caption {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .tile-media {
+    bottom: 80px;
+  }
+
+  .ui-toggle {
+    font-size: 90px;
+  }
+
+  .ui-speed {
+    font-size: 130px;
+  }
+
+  .flow {
+    padding: 120px var(--margin) 100px;
+  }
+
+  .flow h2 {
+    margin-bottom: 40px;
+  }
+
+  .bar {
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .stage {
+    min-height: 120px;
+    min-width: 0;
+  }
+
+  .stage-count {
+    flex: none;
+  }
+
+  .stage-record {
+    min-height: 200px;
+  }
+
+  .stage-edit {
+    min-height: 300px;
+  }
+
+  .stage p {
+    position: static;
+    width: auto;
+    margin-top: 10px;
+    color: inherit;
+  }
+
+  .flow .note {
+    margin-top: 24px;
+  }
+
+  .privacy {
+    padding: 10px;
+  }
+
+  .privacy-panel {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-bottom: 72vw;
+  }
+
+  .privacy-statement,
+  .privacy-text {
+    position: static;
+    padding: 32px 24px 0;
+  }
+
+  .privacy-text {
+    gap: 32px;
+  }
+
+  .privacy-lens {
+    left: 7vw;
+    bottom: -14vw;
+    width: 86vw;
+  }
+
+  .dev {
+    padding: 110px var(--margin);
+  }
+
+  .dev-grid,
+  .get-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  pre {
+    padding: 24px 20px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  code {
+    font-size: 14px;
+  }
+
+  .get {
+    padding: 110px var(--margin) 100px;
+  }
+
+  .get-grid {
+    margin-top: 64px;
+  }
+
+  .foot-mark svg {
+    width: 26vw;
+    height: 26vw;
+  }
+
+  .foot-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .foot-last {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* The privacy policy: one readable column. */
+.doc {
+  max-width: 820px;
+  padding: 170px var(--margin) 140px;
+}
+
+.doc h1 {
+  font-size: var(--xl);
+  line-height: 1;
+}
+
+.doc h2 {
+  margin-top: 72px;
+  font-size: var(--l);
+}
+
+.doc p,
+.doc .links,
+.doc .table-wrap {
+  max-width: 68ch;
+  margin-top: 20px;
+}
+
+.doc-lead {
+  margin-top: 32px;
+  font-size: var(--m);
+  line-height: 1.45;
+}
+
+.doc .links li {
+  align-items: baseline;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--small);
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--raised);
+  padding: 14px 16px 14px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.foot-small .foot-last {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  /* The table reads as one block per row on a phone instead of scrolling sideways. */
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    border-bottom: 1px solid var(--raised);
+    padding: 14px 0;
+  }
+
+  td {
+    display: block;
+    border: 0;
+    padding: 2px 0;
+  }
+
+  td:first-child {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  td:nth-child(2) {
+    color: var(--muted);
+  }
+}

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>usee: free screen recorder and editor for Windows</title>
+    <meta
+      name="description"
+      content="usee is a free, open-source screen recorder for Windows. It zooms in where you click, smooths the cursor and frames the picture, on your computer alone."
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1020" />
+    <link rel="icon" href="assets/usee-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to the content</a>
+
+    <header class="nav">
+      <a class="wordmark" href="./" aria-label="usee, home">
+        <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+          <rect class="mark-plate" x="1" y="1" width="26" height="26" rx="8" />
+          <circle class="mark-glass" cx="14" cy="14" r="5.4" />
+          <circle class="mark-ring" cx="14" cy="14" r="6.4" />
+          <circle class="mark-light" cx="14" cy="14" r="2.6" />
+        </svg>
+        <span>usee</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#developers">Developers</a>
+        <a class="button button-small" href="#download">Download</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy rise">
+          <h1 id="hero-title">Screen recordings that look edited</h1>
+          <p class="lead">
+            usee is a free, open-source screen recorder for Windows. It zooms in where you click,
+            smooths the cursor and frames the picture, on your computer alone.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="https://github.com/techuhat/usee/releases/latest"
+              >Download for Windows</a
+            >
+            <p class="note">Free and open source. Windows 10 and 11, x64.</p>
+          </div>
+        </div>
+        <div class="hero-stage" aria-hidden="true"></div>
+        <figure class="hero-shot shutter">
+          <img
+            src="assets/editor.png"
+            width="1440"
+            height="900"
+            alt="The usee editor: a recording turned in 3D over a peach background, the 3D camera panel with its five moves, and the timeline"
+          />
+        </figure>
+      </section>
+
+      <section class="camera" id="camera" aria-labelledby="camera-title">
+        <input class="shot-input" type="radio" name="shot" id="shot-wide" checked />
+        <input class="shot-input" type="radio" name="shot" id="shot-zoom" />
+        <input class="shot-input" type="radio" name="shot" id="shot-turn" />
+        <figure class="plate rise">
+          <img
+            class="frame frame-wide"
+            src="assets/frame-wide.png"
+            width="782"
+            height="439"
+            loading="lazy"
+            alt="A usee recording in its frame on a peach background, seen whole"
+          />
+          <img
+            class="frame frame-zoom"
+            src="assets/frame-zoom.png"
+            width="782"
+            height="439"
+            loading="lazy"
+            alt="The same recording, the camera moved in close where the click was"
+          />
+          <img
+            class="frame frame-turn"
+            src="assets/frame-orbit.png"
+            width="782"
+            height="439"
+            loading="lazy"
+            alt="The same recording, the camera turned in 3D as it moves"
+          />
+          <svg class="lens" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <circle class="lens-ring" cx="50" cy="50" r="43" />
+            <circle class="lens-light" cx="50" cy="50" r="2.4" />
+          </svg>
+        </figure>
+        <div class="camera-copy">
+          <div class="shots rise" role="group" aria-label="Choose a shot">
+            <label for="shot-wide">Wide</label>
+            <label for="shot-zoom">Zoomed on a click</label>
+            <label for="shot-turn">Turned in 3D</label>
+          </div>
+          <div class="rise">
+            <h2 id="camera-title">The camera follows you</h2>
+            <p>
+              usee notes each click and each pause of the pointer, then moves the camera there, flat
+              or turned in 3D. These three frames come from one usee recording, and every zoom stays
+              yours to change on the timeline.
+            </p>
+          </div>
+          <div class="cells rise">
+            <a class="cell cell-ink" href="#download">Download</a>
+            <a class="cell" href="#features">All features</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="board" id="features" aria-labelledby="features-title">
+        <div class="tile tile-heading rise">
+          <h2 id="features-title">Everything the edit needs</h2>
+        </div>
+
+        <div class="tile tile-keys rise">
+          <div class="ui ui-keys" data-ui aria-hidden="true">
+            <kbd>Ctrl</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>F10</kbd>
+          </div>
+          <p class="caption">
+            <strong>Record</strong>A screen, a window or an area. Stop with these keys.
+          </p>
+        </div>
+
+        <div class="tile tile-speed rise">
+          <div class="ui ui-speed" data-ui aria-hidden="true"><span>4</span>×</div>
+          <p class="caption"><strong>Speed</strong>A quarter speed to four times, clip by clip.</p>
+        </div>
+
+        <div class="tile tile-video rise">
+          <div class="tile-media">
+            <video
+              src="assets/usee-export.mp4"
+              poster="assets/frame-orbit.png"
+              width="960"
+              height="540"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label="A seven-second clip exported by usee: the camera moves in on the recording and turns in 3D"
+            ></video>
+          </div>
+          <p class="caption"><strong>Export</strong>MP4 up to 4K. This clip is a usee export.</p>
+        </div>
+
+        <div class="tile tile-toggle rise">
+          <div class="ui ui-toggle" data-ui aria-hidden="true">
+            <span class="switch"><span></span></span>
+          </div>
+          <p class="caption"><strong>Auto zoom</strong>In on every click and every pause.</p>
+        </div>
+
+        <div class="tile tile-3d rise">
+          <div class="tile-media tile-media-left">
+            <img
+              src="assets/panel-3d.png"
+              width="303"
+              height="230"
+              loading="lazy"
+              alt="The 3D panel in the usee editor: tilt, turn and rotate sliders, and the Gentle, Normal and Strong lens"
+            />
+          </div>
+          <p class="caption">
+            <strong>3D camera</strong>Tilt, turn and rotate, or one of five moves.
+          </p>
+        </div>
+
+        <div class="tile tile-timeline rise">
+          <div class="tile-media tile-media-left">
+            <img
+              src="assets/timeline.png"
+              width="1280"
+              height="126"
+              loading="lazy"
+              alt="The usee timeline: the recording's frames and sound along its clip, and a 3D zoom below it"
+            />
+          </div>
+          <p class="caption">
+            <strong>Timeline</strong>Split, trim and undo, with each clip's frames and sound.
+          </p>
+        </div>
+
+        <div class="tile tile-cursor rise">
+          <div class="tile-media">
+            <img
+              src="assets/click.png"
+              width="260"
+              height="156"
+              loading="lazy"
+              alt="A click in a usee recording: the drawn cursor and the ring that spreads from it"
+            />
+          </div>
+          <p class="caption"><strong>Cursor</strong>Smooth, with an effect on every click.</p>
+        </div>
+
+        <div class="tile tile-blur rise">
+          <div class="tile-media">
+            <img
+              src="assets/blur.png"
+              width="300"
+              height="180"
+              loading="lazy"
+              alt="A privacy blur in a usee recording: part of the picture blurred out"
+            />
+          </div>
+          <p class="caption">
+            <strong>Annotations</strong>Words, arrows, boxes, and blur for anything private.
+          </p>
+        </div>
+      </section>
+
+      <section class="flow" id="how" aria-labelledby="flow-title">
+        <h2 id="flow-title" class="rise">From click to MP4</h2>
+        <div class="bar rise" data-ui>
+          <div class="stage stage-count">
+            <h3 class="stage-time">Three seconds</h3>
+            <p>First, a countdown, and usee steps aside.</p>
+          </div>
+          <div class="stage stage-record">
+            <h3 class="stage-time">As long as you need</h3>
+            <p>Then record a screen, a window or an area.</p>
+          </div>
+          <div class="stage stage-edit">
+            <h3 class="stage-time">A few minutes</h3>
+            <p>Then edit: zooms, cursor and frame are already in place.</p>
+          </div>
+          <div class="stage stage-export">
+            <h3 class="stage-time">About a minute</h3>
+            <p>Last, export an MP4, up to 4K.</p>
+          </div>
+        </div>
+        <p class="note rise">Times for a two-minute recording on a desktop PC.</p>
+      </section>
+
+      <section class="privacy" id="privacy" aria-labelledby="privacy-title">
+        <div class="privacy-panel">
+          <div class="privacy-statement">
+            <h2 id="privacy-title" class="rise">Nothing leaves this computer</h2>
+            <figure class="privacy-lens rise">
+              <img
+                src="assets/privacy-scene.png"
+                width="473"
+                height="550"
+                loading="lazy"
+                alt="From the usee welcome tour: a recording going into a locked folder on the computer, and the cloud crossed out"
+              />
+            </figure>
+          </div>
+          <div class="privacy-text">
+            <div class="rise">
+              <h3>What it keeps, and where</h3>
+              <p>
+                Recordings go to Videos\usee; settings and logs to your app-data folder. The logs
+                hold no pictures, sound, window titles or keystrokes.
+              </p>
+            </div>
+            <div class="rise">
+              <h3>What it never does</h3>
+              <p>
+                No account, no upload, no telemetry, no update checks. You pick the microphone for
+                each recording, and usee forgets it.
+              </p>
+            </div>
+            <a class="button rise" href="privacy.html">Read the privacy policy</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="dev" id="developers" aria-labelledby="dev-title">
+        <h2 id="dev-title" class="rise">Built in the open</h2>
+        <div class="dev-grid">
+          <pre class="rise"><code>git clone https://github.com/techuhat/usee.git
+cd usee
+npm install
+npm run build:native
+npm run dev</code></pre>
+          <div class="dev-text rise">
+            <p>
+              usee is an Electron and React app with a C++20 recorder host, which captures through
+              Windows Graphics Capture and Media Foundation; FFmpeg encodes the export. It is
+              MIT-licensed, and GitHub Actions builds and tests every change and every release.
+            </p>
+            <ul class="links">
+              <li><a href="https://github.com/techuhat/usee">Source on GitHub</a></li>
+              <li>
+                <a href="https://github.com/techuhat/usee/blob/main/CONTRIBUTING.md"
+                  >Contributing guide</a
+                >
+              </li>
+              <li>
+                <a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">Roadmap</a>
+              </li>
+              <li>
+                <a href="https://github.com/techuhat/usee/blob/main/docs/architecture.md"
+                  >Architecture</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="get" id="download" aria-labelledby="get-title">
+        <p class="get-sentence rise" id="get-title">
+          Get usee <span class="get-blank">free</span> for
+          <a class="get-button" href="https://github.com/techuhat/usee/releases/latest">Windows</a>
+        </p>
+        <p class="note rise">
+          The installer is for Windows 10 (version 2004 or later) and 11, x64. It is not signed yet,
+          so SmartScreen asks once: choose More info, then Run anyway.
+        </p>
+        <div class="get-grid">
+          <div class="rise">
+            <h3>Download</h3>
+            <ul class="links">
+              <li>
+                <a href="https://github.com/techuhat/usee/releases/latest"
+                  >Latest release, with its notes</a
+                >
+              </li>
+              <li><a href="https://github.com/techuhat/usee/releases">Every release</a></li>
+              <li><a href="#developers">Build it from source</a></li>
+            </ul>
+            <p>
+              It installs for your user alone, with no administrator rights. To remove it: Windows
+              Settings, Apps, Installed apps, usee. Your recordings stay until you delete them.
+            </p>
+          </div>
+          <div class="rise" id="code-signing-policy">
+            <h3>Code signing policy</h3>
+            <p>
+              Free code signing provided by <a href="https://about.signpath.io">SignPath.io</a>,
+              certificate by <a href="https://signpath.org">SignPath Foundation</a>. usee has
+              applied to the programme; until it is accepted, releases are unsigned.
+            </p>
+            <p>
+              Every signed file is built by GitHub Actions from this public source, and each release
+              is approved by hand. Committers, reviewers and approvers:
+              <a href="https://github.com/techuhat">techuhat</a>. Only usee's own files are signed;
+              ffmpeg.exe, built from FFmpeg's source by the same workflow, is not.
+            </p>
+            <p>
+              This program will not transfer any information to other networked systems unless
+              specifically requested by the user or the person installing or operating it.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-mark" aria-hidden="true">
+        <svg viewBox="0 0 280 280" focusable="false">
+          <rect class="mark-plate" x="4" y="4" width="272" height="272" rx="76" />
+          <circle class="mark-glass" cx="140" cy="140" r="56" />
+          <circle class="mark-ring foot-ring" cx="140" cy="140" r="66" />
+          <circle class="mark-light" cx="140" cy="140" r="26" />
+        </svg>
+        <span class="foot-word">usee</span>
+      </div>
+      <div class="foot-links">
+        <ul>
+          <li><a href="#download">Download</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="#code-signing-policy">Code signing policy</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://github.com/techuhat/usee">Source on GitHub</a></li>
+          <li><a href="https://github.com/techuhat/usee/releases">Releases</a></li>
+          <li><a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">Roadmap</a></li>
+          <li>
+            <a href="https://github.com/techuhat/usee/blob/main/CONTRIBUTING.md">Contributing</a>
+          </li>
+        </ul>
+        <ul>
+          <li><a href="https://github.com/techuhat/usee/blob/main/LICENSE">MIT License</a></li>
+          <li><a href="https://github.com/techuhat/usee/blob/main/SECURITY.md">Security</a></li>
+          <li>
+            <a href="https://github.com/techuhat/usee/blob/main/CODE_OF_CONDUCT.md"
+              >Code of Conduct</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="foot-last">
+        <p>
+          © 2026 Mohammad Umar Wajid Khan. usee is free software under the MIT License. It exports
+          with <a href="https://ffmpeg.org">FFmpeg</a>, licensed under the
+          <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL 2.1</a> or later;
+          each release carries its source.
+        </p>
+        <a class="button button-small" href="https://github.com/techuhat/usee">View on GitHub</a>
+      </div>
+    </footer>
+
+    <script type="module">
+      // Each section's parts rise in as it comes into view; without this script, all are shown.
+      const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (motion && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('animate');
+        const seen = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                seen.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' },
+        );
+        for (const element of document.querySelectorAll('.rise, .shutter')) {
+          seen.observe(element);
+        }
+      }
+    </script>
+  </body>
+</html>

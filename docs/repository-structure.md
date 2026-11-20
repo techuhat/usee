@@ -17,6 +17,7 @@
 ├─ config/                     Shared build and release configuration (added with packaging, Phase 7)
 ├─ docs/                       Architecture, operating rules, ADRs, roadmap, README images
 ├─ scripts/                    Repository checks; never runtime application logic
+├─ site/                       The website, published to GitHub Pages by .github/workflows/pages.yml
 ├─ tests/                      Cross-package fixtures/integration/e2e homes
 ├─ .github/                    CI checks, Dependabot, issue and pull request templates
 └─ package.json                npm workspace orchestration only

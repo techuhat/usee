@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy policy: usee</title>
+    <meta
+      name="description"
+      content="usee's privacy policy: what the screen recorder keeps on your computer, when it records, and that it sends nothing anywhere."
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1020" />
+    <link rel="icon" href="assets/usee-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to the content</a>
+
+    <header class="nav">
+      <a class="wordmark" href="./" aria-label="usee, home">
+        <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+          <rect class="mark-plate" x="1" y="1" width="26" height="26" rx="8" />
+          <circle class="mark-glass" cx="14" cy="14" r="5.4" />
+          <circle class="mark-ring" cx="14" cy="14" r="6.4" />
+          <circle class="mark-light" cx="14" cy="14" r="2.6" />
+        </svg>
+        <span>usee</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="./#features">Features</a>
+        <a href="./#privacy">Privacy</a>
+        <a href="./#developers">Developers</a>
+        <a class="button button-small" href="./#download">Download</a>
+      </nav>
+    </header>
+
+    <main id="main" class="doc">
+      <h1>Privacy policy</h1>
+      <p class="doc-lead">
+        Effective 20 November 2026. This policy covers the usee app and its installer. It is short
+        because usee collects nothing about you.
+      </p>
+      <p>
+        This program will not transfer any information to other networked systems unless
+        specifically requested by the user or the person installing or operating it.
+      </p>
+
+      <h2>What usee sends</h2>
+      <p>
+        Nothing. usee makes no network connections of its own: it has no account or sign-in, no
+        telemetry or analytics, no crash reports, no ads and no automatic update checks. Your
+        recordings are never uploaded anywhere.
+      </p>
+
+      <h2>What stays on your computer</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">What</th>
+              <th scope="col">Where</th>
+              <th scope="col">What it holds</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Recordings</td>
+              <td>Videos\usee</td>
+              <td>
+                One folder per recording: its video and sound, where the pointer moved and clicked,
+                and your edits
+              </td>
+            </tr>
+            <tr>
+              <td>Recordings still being made</td>
+              <td>%LOCALAPPDATA%\usee</td>
+              <td>Temporary files, until a recording becomes a project in Videos\usee</td>
+            </tr>
+            <tr>
+              <td>Settings</td>
+              <td>%APPDATA%\usee</td>
+              <td>
+                Your preferences, such as the frame rate, the looks new recordings start with and
+                the export quality. No microphone and no folder are kept there
+              </td>
+            </tr>
+            <tr>
+              <td>Logs</td>
+              <td>%APPDATA%\usee\logs</td>
+              <td>
+                Technical events, to find what went wrong. They hold no pictures, sound, window
+                titles or keystrokes, and show your user folder as %USERPROFILE%
+              </td>
+            </tr>
+            <tr>
+              <td>Exported videos</td>
+              <td>Wherever you save them</td>
+              <td>The finished MP4 files</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What usee records, and when</h2>
+      <ul class="links">
+        <li>
+          <span
+            ><strong>Your screen</strong> only after you start a recording and its countdown ends,
+            and only the screen, window or area you chose. It stops when you stop it.</span
+          >
+        </li>
+        <li>
+          <span
+            ><strong>Your microphone</strong> only when you pick one for that recording. The choice
+            is never remembered, so each recording starts without one.</span
+          >
+        </li>
+        <li>
+          <span
+            ><strong>The pointer</strong> (where it moves, its clicks and its shape) only while
+            "Record it for cursor effects" is on, to draw the cursor in the editor. usee never reads
+            what you type.</span
+          >
+        </li>
+        <li>
+          <span
+            ><strong>Window titles</strong> appear in the window picker alone; they are never
+            saved.</span
+          >
+        </li>
+      </ul>
+
+      <h2>Removing your data</h2>
+      <p>
+        Delete the folders in the table above. Uninstalling usee (Windows Settings, Apps, Installed
+        apps) removes the app but keeps your recordings, settings and logs until you delete them
+        yourself.
+      </p>
+
+      <h2>Downloads and this website</h2>
+      <p>
+        usee is downloaded from GitHub, and this website is hosted on GitHub Pages, so visiting
+        either is covered by
+        <a
+          href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+          >GitHub's privacy statement</a
+        >. This website loads nothing from other sites and sets no cookies.
+      </p>
+
+      <h2>Code signing</h2>
+      <p>
+        Once usee is signed through the SignPath Foundation (<a href="./#code-signing-policy"
+          >code signing policy</a
+        >), signing happens on SignPath's servers from GitHub's build. It involves no information
+        about you.
+      </p>
+
+      <h2>Changes and questions</h2>
+      <p>
+        Changes to this policy are made in the open, in the
+        <a href="https://github.com/techuhat/usee/commits/main/PRIVACY.md">history of PRIVACY.md</a>
+        on GitHub. Questions are welcome as an
+        <a href="https://github.com/techuhat/usee/issues">issue</a>.
+      </p>
+    </main>
+
+    <footer class="foot foot-small">
+      <div class="foot-last">
+        <p>© 2026 Mohammad Umar Wajid Khan. usee is free software under the MIT License.</p>
+        <a class="button button-small" href="./">Back to usee</a>
+      </div>
+    </footer>
+  </body>
+</html>
