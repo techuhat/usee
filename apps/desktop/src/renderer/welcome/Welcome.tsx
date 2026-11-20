@@ -105,15 +105,24 @@ export function Welcome({
     setDirection(to > index ? 'forward' : 'back');
     setIndex(to);
   };
-  const close = () => {
-    if (closing) {
-      return;
+  // The tour is marked seen as it finishes leaving, not as it starts to: marking it at
+  // once took it off the screen before it could leave. The wait belongs to this
+  // closing, so a tour gone from the screen can never close one opened after it.
+  useEffect(() => {
+    if (!closing) {
+      return undefined;
     }
-    void settings.getState().update({ welcome: { seen: true } });
+    const timer = window.setTimeout(() => {
+      void settings.getState().update({ welcome: { seen: true } });
+      onClose();
+    }, CLOSE_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing, settings, onClose]);
+  const close = () => {
     if (MOTION) {
       setClosing(true);
-      window.setTimeout(onClose, CLOSE_MS);
     } else {
+      void settings.getState().update({ welcome: { seen: true } });
       onClose();
     }
   };

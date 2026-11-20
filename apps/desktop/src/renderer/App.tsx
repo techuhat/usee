@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 
 import { EditorView } from './editor/EditorView';
@@ -41,6 +41,7 @@ export function App({
     state.settings === undefined ? undefined : state.settings.welcome?.seen === true,
   );
   const [welcomeOpen, setWelcomeOpen] = useState<boolean | undefined>(undefined);
+  const closeWelcome = useCallback(() => setWelcomeOpen(false), []);
   const showWelcome = welcomeOpen ?? welcomeSeen === false;
 
   // A finished recording opens straight in the editor.
@@ -97,7 +98,7 @@ export function App({
           settings={settingsStore}
           // Opening with the app, it waits for the startup intro to finish.
           entranceDelayMs={welcomeOpen === undefined && MOTION ? INTRO_MS : 0}
-          onClose={() => setWelcomeOpen(false)}
+          onClose={closeWelcome}
         />
       )}
     </div>

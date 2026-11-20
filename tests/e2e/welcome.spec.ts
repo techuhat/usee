@@ -15,7 +15,10 @@ test('a first start opens the welcome tour once, and Settings shows it again', a
     try {
       const page = await first.app.firstWindow();
       const tour = page.getByRole('dialog');
-      await expect(page.getByRole('dialog', { name: 'Welcome to usee' })).toBeVisible();
+      // It opens once the settings have loaded; a first start after a build can be slow.
+      await expect(page.getByRole('dialog', { name: 'Welcome to usee' })).toBeVisible({
+        timeout: 20_000,
+      });
 
       // Next and the arrow keys step through it; a step's dot goes straight there.
       await tour.getByRole('button', { name: 'Next' }).click();
@@ -30,10 +33,25 @@ test('a first start opens the welcome tour once, and Settings shows it again', a
       const last = page.getByRole('dialog', { name: 'Choose how recordings start' });
       await expect(last).toBeVisible();
 
-      // The last step chooses the looks new recordings start with; Done closes the tour for good.
+      // The last step chooses the looks new recordings start with; Done closes the tour.
       await last.getByRole('radio', { name: 'Dusk', exact: true }).click();
       await last.getByRole('button', { name: 'Done' }).click();
+
+      // Settings opens it again, even straight after it closed, and it stays open (a tour
+      // closing a moment before once closed the one opened after it); Escape closes it.
+      await page
+        .getByRole('navigation', { name: 'Main' })
+        .getByRole('button', { name: 'Settings' })
+        .click();
+      await page.getByRole('button', { name: 'Show the welcome tour' }).click();
+      const again = page.getByRole('dialog', { name: 'Welcome to usee' });
+      await expect(again).toBeVisible();
+      await page.waitForTimeout(600);
+      await expect(again).toBeVisible();
+      await page.keyboard.press('Escape');
       await expect(tour).toBeHidden();
+
+      // Closing it saved that it was seen, and the looks chosen on its last step.
       const settingsFile = path.join(dataDirectory, 'user-data', 'settings.json');
       await expect
         .poll(async () =>
@@ -45,16 +63,6 @@ test('a first start opens the welcome tour once, and Settings shows it again', a
           welcome: { seen: true },
           newProjects: { canvas: { background: { kind: 'gradient', from: '#1b2550' } } },
         });
-
-      // Settings opens it again, and Escape closes it.
-      await page
-        .getByRole('navigation', { name: 'Main' })
-        .getByRole('button', { name: 'Settings' })
-        .click();
-      await page.getByRole('button', { name: 'Show the welcome tour' }).click();
-      await expect(page.getByRole('dialog', { name: 'Welcome to usee' })).toBeVisible();
-      await page.keyboard.press('Escape');
-      await expect(tour).toBeHidden();
     } finally {
       await first.close();
     }
