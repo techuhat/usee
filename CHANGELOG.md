@@ -4,6 +4,16 @@ Notable changes to usee are listed here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-20
+
+### Added
+
+- A privacy policy (PRIVACY.md), installed beside the app as PRIVACY.txt and summed up in Settings, under About.
+
+### Fixed
+
+- The welcome tour now plays its exit when it closes, and a tour closing a moment before can no longer close one opened straight after it from Settings.
+
 ## [0.1.0] - 2026-11-18
 
 The first release: usee's first installer, built from the public source by GitHub Actions.
@@ -21,5 +31,6 @@ The first release: usee's first installer, built from the public source by GitHu
 - A welcome tour on the first start, a short intro as the window opens, and an icon drawn for every size Windows shows.
 - A per-user Windows installer, not signed yet.
 
-[Unreleased]: https://github.com/techuhat/usee/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/techuhat/usee/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/techuhat/usee/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/techuhat/usee/releases/tag/v0.1.0

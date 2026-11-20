@@ -1,6 +1,14 @@
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
 import { expect, test, type ElectronApplication, type Page } from '@playwright/test';
 
 import { launchDesktopApp, type LaunchedApp } from './launch-app';
+
+// The version each release sets, so the check needs no edit per release.
+const { version } = JSON.parse(
+  readFileSync(path.resolve(__dirname, '..', '..', 'apps', 'desktop', 'package.json'), 'utf8'),
+) as { version: string };
 
 let launched: LaunchedApp;
 let app: ElectronApplication;
@@ -20,7 +28,7 @@ test('boots the bundled renderer from app:// and shows runtime info', async () =
   await expect(page).toHaveTitle('usee');
   expect(page.url()).toBe('app://renderer/index.html');
   await expect(page.getByRole('heading', { level: 1, name: 'usee' })).toBeVisible();
-  await expect(page.getByTestId('runtime-summary')).toContainText('Version 0.1.0');
+  await expect(page.getByTestId('runtime-summary')).toContainText(`Version ${version}`);
 });
 
 test('exposes only the typed desktop bridge to the page', async () => {
