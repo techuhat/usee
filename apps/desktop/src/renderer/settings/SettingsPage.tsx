@@ -300,6 +300,11 @@ export function SettingsPage({
               : 'usee'}
           </p>
           <p className="field-note">
+            Privacy: usee sends nothing off this computer. There is no account, upload or telemetry;
+            recordings stay in Videos\usee, and settings and logs in your app-data folder. The
+            privacy policy, PRIVACY.txt, is in usee's installation folder.
+          </p>
+          <p className="field-note">
             Export uses FFmpeg, licensed under the LGPL 2.1 or later and built from its published
             source without GPL or non-free parts. Its licence ships beside the app.
           </p>

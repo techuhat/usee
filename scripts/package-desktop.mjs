@@ -123,6 +123,7 @@ for (const [key, entry] of Object.entries(lock.packages)) {
 await rm(notices, { recursive: true, force: true });
 await mkdir(notices, { recursive: true });
 await cp(path.join(root, 'LICENSE'), path.join(notices, 'LICENSE.txt'));
+await cp(path.join(root, 'PRIVACY.md'), path.join(notices, 'PRIVACY.txt'));
 await writeFile(
   path.join(notices, 'THIRD-PARTY-NOTICES.txt'),
   [
@@ -152,7 +153,9 @@ await build({
     asar: true,
     npmRebuild: false,
     nodeGypRebuild: false,
-    extraFiles: [{ from: notices, to: '.', filter: ['LICENSE.txt', 'THIRD-PARTY-NOTICES.txt'] }],
+    extraFiles: [
+      { from: notices, to: '.', filter: ['LICENSE.txt', 'PRIVACY.txt', 'THIRD-PARTY-NOTICES.txt'] },
+    ],
     extraResources: [
       {
         from: host,

@@ -81,6 +81,8 @@ Screen recordings show a lot, so usee keeps them with you.
 - usee records where the pointer moves and clicks, to draw the cursor. It never reads keystrokes.
 - Window titles appear only in the window picker. Logs and project files name a window by an ID, and logs hide your user folder.
 
+The [privacy policy](PRIVACY.md) has the details: what is kept, where, and how to remove it.
+
 ## 🧰 Build and run
 
 | You need                  | Version                                    |
@@ -141,7 +143,7 @@ Free code signing provided by [SignPath.io](https://about.signpath.io), certific
 
 - **Builds.** Every signed file is built by [`release.yml`](.github/workflows/release.yml) on GitHub Actions from this repository's public source, and each release is approved by hand before it is signed. Only usee's own files are signed: the installer, `usee.exe` and the recorder host. `ffmpeg.exe`, built from FFmpeg's official source by the same workflow, ships unsigned inside the signed installer.
 - **Team roles.** Committers and reviewers: [techuhat](https://github.com/techuhat). Approvers, who approve every signing request: [techuhat](https://github.com/techuhat). Changes from anyone else are reviewed before they are merged.
-- **Privacy.** This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
+- **Privacy.** This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it ([privacy policy](PRIVACY.md)).
 
 ## 🛡️ Security
 
