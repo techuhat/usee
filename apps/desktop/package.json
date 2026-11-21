@@ -27,17 +27,17 @@
     "@usee/domain": "*",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "zustand": "5.0.15"
+    "zustand": "5.1.0"
   },
   "devDependencies": {
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "6.1.2",
-    "concurrently": "10.0.6",
+    "@vitejs/plugin-react": "6.3.0",
+    "concurrently": "10.0.7",
     "cross-env": "10.1.0",
     "electron": "45.3.3",
     "esbuild": "0.28.2",
-    "vite": "8.3.4",
+    "vite": "8.3.8",
     "wait-on": "9.5.1"
   }
 }
