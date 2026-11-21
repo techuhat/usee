@@ -55,6 +55,16 @@ interface Projection {
 type RenderCanvas = HTMLCanvasElement | OffscreenCanvas;
 type RenderCanvasFactory = () => RenderCanvas;
 
+/**
+ * The two contexts the projector takes from a canvas. On the union above,
+ * TypeScript picks a getContext overload by the order it first met the two
+ * canvas types, so the linter could read a different type than tsc.
+ */
+interface ContextCanvas {
+  getContext(contextId: '2d'): RenderCanvasContext | null;
+  getContext(contextId: 'webgl2', options: WebGLContextAttributes): WebGL2RenderingContext | null;
+}
+
 interface Point {
   readonly x: number;
   readonly y: number;
@@ -75,7 +85,7 @@ function compile(gl: WebGL2RenderingContext, type: GLenum, source: string): WebG
 
 /** A WebGL 2 context ready to project a card; null where there is no WebGL 2. */
 function createProjection(createCanvas: RenderCanvasFactory): Projection | null {
-  const canvas = createCanvas();
+  const canvas: ContextCanvas = createCanvas();
   const gl = canvas.getContext('webgl2', {
     alpha: false,
     antialias: false,
@@ -320,7 +330,8 @@ export class CameraProjector {
     const detail = cardDetail(card.toOutput, place);
     const width = Math.max(1, Math.min(MAX_CARD_PX, Math.round(place.w * detail)));
     resize(this.#flat, width, Math.max(1, Math.round((width * place.h) / place.w)));
-    const flat = this.#flat.getContext('2d');
+    const flatCanvas: ContextCanvas = this.#flat;
+    const flat = flatCanvas.getContext('2d');
     if (flat === null) {
       return;
     }
