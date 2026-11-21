@@ -4,6 +4,10 @@ Notable changes to usee are listed here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Changed
+
+- usee now runs on Electron 45.3.3, up from 44.9.3.
+
 ## [0.1.1] - 2026-11-20
 
 ### Added
