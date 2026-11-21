@@ -25,7 +25,7 @@ Built for developers who record demos, tutorials and bug reports.
 Get the installer from the [latest release](https://github.com/techuhat/usee/releases/latest), for Windows 10 (version 2004 or later) and Windows 11, x64. It installs for your user alone, with no administrator rights. The website, [techuhat.github.io/usee](https://techuhat.github.io/usee/), shows what usee does.
 
 > [!NOTE]
-> The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. Signed builds follow once usee joins the SignPath Foundation's programme for open-source projects ([code signing policy](#-code-signing-policy)).
+> The installer is not signed yet, so Windows SmartScreen may warn the first time you run it: choose **More info**, then **Run anyway**. The [code signing policy](#-code-signing-policy) says how signed releases will be made.
 
 ## 🎬 What it does
 
@@ -139,7 +139,7 @@ Bug reports, ideas and pull requests are all welcome. [CONTRIBUTING.md](CONTRIBU
 
 ## 🔏 Code signing policy
 
-Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org). usee has applied to the SignPath Foundation's programme for open-source projects; until it is accepted, releases are unsigned.
+Releases are not signed yet ([docs/release.md](docs/release.md#signing) says what signing waits for). Once they are, signing follows this policy:
 
 - **Builds.** Every signed file is built by [`release.yml`](.github/workflows/release.yml) on GitHub Actions from this repository's public source, and each release is approved by hand before it is signed. Only usee's own files are signed: the installer, `usee.exe` and the recorder host. `ffmpeg.exe`, built from FFmpeg's official source by the same workflow, ships unsigned inside the signed installer.
 - **Team roles.** Committers and reviewers: [techuhat](https://github.com/techuhat). Approvers, who approve every signing request: [techuhat](https://github.com/techuhat). Changes from anyone else are reviewed before they are merged.

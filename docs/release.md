@@ -28,7 +28,7 @@ The foundation build validates TypeScript packages and produces the secure blank
 
 ## Signing
 
-usee is free, open-source software (MIT) and is to be signed through the SignPath Foundation's free programme for open-source projects ([signpath.org](https://signpath.org/terms)), which accepts a project only once it has released. The first release is therefore unsigned, and Windows SmartScreen warns when it is first run. The programme's terms, as read on 2026-11-18:
+usee is free, open-source software (MIT), and its releases are not signed yet, so Windows SmartScreen warns when an installer is first run. The plan was the SignPath Foundation's free programme for open-source projects ([signpath.org](https://signpath.org/terms)), which accepts a project only once it has released. In November 2026 the Foundation declined usee's first application: the project was new, with no reviews yet. usee can apply again once it has users and a history. The programme's terms, as read on 2026-11-18:
 
 - The certificate is issued to SignPath Foundation, which Windows names as the publisher.
 - Every signed file must come from an automated build of the public repository's source, which SignPath verifies, and a maintainer approves each release by hand.
@@ -36,7 +36,11 @@ usee is free, open-source software (MIT) and is to be signed through the SignPat
 - The project's home page carries a code signing policy, with SignPath's attribution, the team's roles and a privacy statement.
 - Only the project's own binaries are signed. Upstream binaries such as `ffmpeg.exe` ship unsigned inside the signed installer.
 
-A signed build still starts without SmartScreen reputation, with an OV or an EV certificate alike, and gains it as people install it. A certificate in the owner's own name, such as an open-source developer certificate from a certificate authority, remains the alternative.
+A signed build still starts without SmartScreen reputation, with an OV or an EV certificate alike, and gains it as people install it. The other routes, as checked on 2026-11-21:
+
+- The Microsoft Store signs an MSIX package it accepts with Microsoft's certificate, and an app installed from the Store gets no SmartScreen warning. An individual developer account is free. usee would need an MSIX build (electron-builder's `appx` target), tested inside the package, where Windows keeps an app's AppData files in a folder of the package's own. A free listing leaves ADR-012 as it is; selling usee would first need the review with a lawyer that ADR-012 asks for.
+- A certificate in the owner's own name, such as Certum's open-source code signing certificate (from €69 a year in Certum's shop), names the owner as the publisher.
+- Azure Artifact Signing (formerly Trusted Signing) takes individual developers in the United States and Canada only, so it is not open to usee's owner.
 
 ## Updating
 
