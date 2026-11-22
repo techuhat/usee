@@ -149,6 +149,49 @@ export function iconSvg(size) {
 }
 
 /**
+ * The Store listing's key art: the icon over a deep field with the tally
+ * light's glow behind it, the name under it and, on the 9:16 poster, a line
+ * on what usee is.
+ * @param {number} width
+ * @param {number} height
+ * @param {number} iconSize
+ * @param {boolean} tagline
+ */
+function keyArtSvg(width, height, iconSize, tagline) {
+  const cx = width / 2;
+  const name = iconSize * 0.34;
+  const line = iconSize * 0.075;
+  const block = iconSize + name * 1.15 + (tagline ? line * 2.2 : 0);
+  const top = (height - block) / 2 - height * 0.02;
+  const baseline = top + iconSize + name * 1.1;
+  const font = "'Segoe UI Variable Display', 'Segoe UI', sans-serif";
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+    '<defs>',
+    '<linearGradient id="field" x1="0" y1="0" x2="0" y2="1">',
+    '<stop offset="0" stop-color="#1b2141"/><stop offset="1" stop-color="#0a0d1b"/>',
+    '</linearGradient>',
+    '<radialGradient id="halo">',
+    `<stop offset="0" stop-color="${TALLY}" stop-opacity="0.2"/>`,
+    `<stop offset="0.55" stop-color="${TALLY}" stop-opacity="0.05"/>`,
+    `<stop offset="1" stop-color="${TALLY}" stop-opacity="0"/>`,
+    '</radialGradient>',
+    '</defs>',
+    `<rect width="${width}" height="${height}" fill="url(#field)"/>`,
+    `<circle cx="${cx}" cy="${top + iconSize / 2}" r="${iconSize * 0.95}" fill="url(#halo)"/>`,
+    iconSvg(iconSize).replace(
+      '<svg xmlns="http://www.w3.org/2000/svg" ',
+      `<svg x="${cx - iconSize / 2}" y="${top}" `,
+    ),
+    `<text x="${cx}" y="${baseline}" text-anchor="middle" font-family="${font}" font-weight="600" font-size="${name}" letter-spacing="${-name * 0.02}" fill="${PAPER}">usee</text>`,
+    tagline
+      ? `<text x="${cx}" y="${baseline + line * 2}" text-anchor="middle" font-family="${font}" font-size="${line}" fill="#aab3d6">Screen recorder and editor for Windows</text>`
+      : '',
+    '</svg>',
+  ].join('');
+}
+
+/**
  * An .ico of PNG images, which Windows reads at every size since Vista.
  * @param {readonly { size: number, png: Buffer }[]} images
  */
@@ -200,6 +243,26 @@ async function main() {
         })()`)
       ),
     );
+  /** A drawing of `width` by `height` as a PNG. */
+  const rasterizeSvg = async (
+    /** @type {string} */ svg,
+    /** @type {number} */ width,
+    /** @type {number} */ height,
+  ) =>
+    pngFrom(
+      /** @type {string} */ (
+        await window.webContents.executeJavaScript(`(async () => {
+          const image = new Image();
+          image.src = 'data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}';
+          await image.decode();
+          const canvas = document.createElement('canvas');
+          canvas.width = ${width};
+          canvas.height = ${height};
+          canvas.getContext('2d').drawImage(image, 0, 0, ${width}, ${height});
+          return canvas.toDataURL('image/png');
+        })()`)
+      ),
+    );
 
   const images = [];
   for (const size of SIZES) {
@@ -243,8 +306,17 @@ async function main() {
       await writeFile(path.join(appx, `${name}.scale-${scale * 100}.png`), png);
     }
   }
-  // The Store listing's 1:1 app tile icon (docs/store-listing.md).
-  await writeFile(path.join(root, 'docs', 'store', 'app-tile-300.png'), await rasterize(300));
+  // The Store listing's images (docs/store-listing.md): the 1:1 app tile icon,
+  // and the key art, 1:1 box art and the 9:16 poster Windows shows as the logo.
+  const store = path.join(root, 'docs', 'store');
+  await writeFile(path.join(store, 'app-tile-300.png'), await rasterize(300));
+  for (const [file, width, height, iconSize, tagline] of /** @type {const} */ ([
+    ['box-art-2160.png', 2160, 2160, 900, false],
+    ['poster-art-1440x2160.png', 1440, 2160, 720, true],
+  ])) {
+    const svg = keyArtSvg(width, height, iconSize, tagline);
+    await writeFile(path.join(store, file), await rasterizeSvg(svg, width, height));
+  }
 
   const previewIndex = process.argv.indexOf('--preview');
   const previewPath = previewIndex === -1 ? undefined : process.argv[previewIndex + 1];

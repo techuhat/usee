@@ -56,8 +56,14 @@ usee is free software under the MIT License. Its source code, issues and roadmap
 
 ### What's new in this version
 
+Blank on the first submission, as Partner Center asks. From the next one on, the changes in that version's CHANGELOG section, in plain words.
+
+### Short description
+
+Shown at the top of the listing; 270 characters or fewer.
+
 ```text
-usee now runs on Electron 45.3.4, and its privacy policy covers this Store version: where Windows keeps its files, and what uninstalling it removes.
+A free, open-source screen recorder for Windows. It zooms in where you click, follows the pointer and can turn the picture in 3D, then exports an MP4, with everything kept on your computer.
 ```
 
 ### Product features
@@ -86,11 +92,19 @@ In this order, from `docs/store/screenshots/` (1440 × 900). They show usee's bu
 
 ### Store logos
 
-The 1:1 app tile icon is `docs/store/app-tile-300.png`, drawn with the app's icon by `scripts/build-icon.mjs`.
+`scripts/build-icon.mjs` draws them with the app's icon, into `docs/store/`:
 
-### Search terms
+| Field                                         | File                       | Size        |
+| --------------------------------------------- | -------------------------- | ----------- |
+| 9:16 Poster art, the main logo                | `poster-art-1440x2160.png` | 1440 × 2160 |
+| 1:1 Box art                                   | `box-art-2160.png`         | 2160 × 2160 |
+| 1:1 App tile icon, under Store display images | `app-tile-300.png`         | 300 × 300   |
 
-screen recorder · screen recording · video editor · screen capture · zoom · tutorial · open source
+There is no trailer, and so no 16:9 Super hero art, which is required only with a trailer; the Xbox images do not apply.
+
+### Keywords
+
+Up to 7, at most 21 words in all: screen recorder · screen recording · video editor · screen capture · zoom · tutorial · open source
 
 ### Copyright and trademark info
 
