@@ -243,6 +243,8 @@ async function main() {
       await writeFile(path.join(appx, `${name}.scale-${scale * 100}.png`), png);
     }
   }
+  // The Store listing's 1:1 app tile icon (docs/store-listing.md).
+  await writeFile(path.join(root, 'docs', 'store', 'app-tile-300.png'), await rasterize(300));
 
   const previewIndex = process.argv.indexOf('--preview');
   const previewPath = previewIndex === -1 ? undefined : process.argv[previewIndex + 1];
