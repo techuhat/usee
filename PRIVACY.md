@@ -1,6 +1,6 @@
 # Privacy policy
 
-Effective 20 November 2026. This policy covers the usee app and its installer. It is short because usee collects nothing about you.
+Effective 21 November 2026. This policy covers the usee app, its installer and its Microsoft Store package. It is short because usee collects nothing about you.
 
 This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
 
@@ -18,6 +18,8 @@ Nothing. usee makes no network connections of its own: it has no account or sign
 | Logs                        | `%APPDATA%\usee\logs`  | Technical events, to find what went wrong. They hold no pictures, sound, window titles or keystrokes, and show your user folder as `%USERPROFILE%` |
 | Exported videos             | Wherever you save them | The finished MP4 files                                                                                                                             |
 
+If you installed usee from the Microsoft Store, Windows may keep its temporary files, settings and logs in a folder of usee's own instead, `%LOCALAPPDATA%\Packages\techuhat.Usee3DMotion-ScreenRecoder_4d2wyw171xb1c\LocalCache`; when the folders above already exist, for example from usee's installer, it uses them. Recordings are always in `Videos\usee`.
+
 ## What usee records, and when
 
 - **Your screen** only after you start a recording and its countdown ends, and only the screen, window or area you chose. It stops when you stop it.
@@ -27,15 +29,15 @@ Nothing. usee makes no network connections of its own: it has no account or sign
 
 ## Removing your data
 
-Delete the folders in the table above. Uninstalling usee (Windows Settings, Apps, Installed apps) removes the app but keeps your recordings, settings and logs until you delete them yourself.
+Delete the folders in the table above. Uninstalling usee (Windows Settings, Apps, Installed apps) removes the app but keeps your recordings, settings and logs until you delete them yourself. Uninstalling the Microsoft Store version also removes its folder of its own; your recordings stay.
 
 ## Downloads and the website
 
-usee is downloaded from GitHub, and its website is hosted on GitHub Pages, so visiting either is covered by [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement). The website loads nothing from other sites and sets no cookies.
+usee is downloaded from GitHub, and its website is hosted on GitHub Pages, so visiting either is covered by [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement). The website loads nothing from other sites and sets no cookies. Getting usee from the Microsoft Store is covered by [Microsoft's privacy statement](https://privacy.microsoft.com/privacystatement).
 
 ## Code signing
 
-Once usee is signed through the SignPath Foundation ([code signing policy](README.md#-code-signing-policy)), signing happens on SignPath's servers from GitHub's build. It involves no information about you.
+The Microsoft Store signs the usee it distributes. The installer on GitHub is not signed yet ([code signing policy](README.md#-code-signing-policy)). Signing involves no information about you.
 
 ## Changes and questions
 

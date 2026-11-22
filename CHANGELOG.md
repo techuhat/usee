@@ -11,6 +11,7 @@ Notable changes to usee are listed here. The format follows [Keep a Changelog](h
 ### Changed
 
 - usee now runs on Electron 45.3.3, up from 44.9.3.
+- The privacy policy covers the Microsoft Store package: where Windows keeps its files, and what uninstalling it removes.
 
 ## [0.1.1] - 2026-11-20
 
