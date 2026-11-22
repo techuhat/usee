@@ -20,7 +20,7 @@ What usee's Store submission says, field by field, for the product "Usee 3D Moti
 
 ## Age ratings
 
-The IARC questionnaire, as an app: no violence, sexual content, gambling, drugs or crude humour; people cannot talk to each other or share content through usee; it shares no location, sells nothing and makes no network connections. That gives the lowest rating.
+The IARC questionnaire, app type "All Other App Types", with every question answered No: no ratings-relevant content in the package; people cannot talk to each other or share content through usee, as export only saves a file on the computer, so the questions about shared content do not apply; no online content beyond the download; nothing age-restricted promoted or sold; no location sharing, digital purchases, cash rewards or NFTs; not a web browser, search engine, news or educational product; no rating from a ratings board and no physical media. That gives the lowest rating.
 
 ## Packages
 
