@@ -70,6 +70,7 @@ The host integration tests and the end-to-end tests skip when the recorder host 
 | `npm run build:native`     | Builds the native recorder host and runs its tests                    |
 | `npm run build:ffmpeg`     | Builds the FFmpeg runtime export uses, from its pinned source         |
 | `npm run package`          | Builds the Windows installer into `build/release/`                    |
+| `npm run package:store`    | Builds the Microsoft Store package into `build/release/`              |
 
 ## Repository layout
 

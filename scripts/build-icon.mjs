@@ -2,14 +2,16 @@
 /**
  * Draws usee's app icon at every size Windows asks for and packs them into
  * apps/desktop/build-resources/icon.ico; the large drawing is also the
- * README's mark, docs/images/usee-mark.svg. The design lives here, in code:
+ * README's mark, docs/images/usee-mark.svg, and the Microsoft Store package
+ * takes its images from apps/desktop/build-resources/appx/ (docs/release.md,
+ * "Microsoft Store"). The design lives here, in code:
  * the sidebar's mark (a lens ring around the amber tally light) on a
  * squircle plate, redrawn for each size so the small ones keep to the pixel
  * grid instead of being shrunk from the large one.
  *
  *   npx electron scripts/build-icon.mjs [--preview <png>]
  */
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -178,7 +180,12 @@ async function main() {
   await app.whenReady();
   const window = new BrowserWindow({ show: false });
   await window.loadURL('data:text/html,<!doctype html><meta charset="utf-8">');
-  const rasterize = async (/** @type {number} */ size) =>
+  /** The icon drawn at `size`, centred on a clear canvas of `width` by `height`. */
+  const rasterize = async (
+    /** @type {number} */ size,
+    /** @type {number} */ width = size,
+    /** @type {number} */ height = size,
+  ) =>
     pngFrom(
       /** @type {string} */ (
         await window.webContents.executeJavaScript(`(async () => {
@@ -186,9 +193,9 @@ async function main() {
           image.src = 'data:image/svg+xml;base64,${Buffer.from(iconSvg(size)).toString('base64')}';
           await image.decode();
           const canvas = document.createElement('canvas');
-          canvas.width = ${size};
-          canvas.height = ${size};
-          canvas.getContext('2d').drawImage(image, 0, 0, ${size}, ${size});
+          canvas.width = ${width};
+          canvas.height = ${height};
+          canvas.getContext('2d').drawImage(image, ${(width - size) / 2}, ${(height - size) / 2}, ${size}, ${size});
           return canvas.toDataURL('image/png');
         })()`)
       ),
@@ -201,6 +208,41 @@ async function main() {
   const resources = path.join(root, 'apps', 'desktop', 'build-resources');
   await writeFile(path.join(resources, 'icon.ico'), packIco(images));
   await writeFile(path.join(root, 'docs', 'images', 'usee-mark.svg'), `${iconSvg(256)}\n`);
+
+  // The Store package's images, at 100% and 200% scale. The Store and the
+  // taskbar show the icon itself, which carries its own plate, so the taskbar
+  // sizes are also marked unplated; Windows 10's Start tiles show it at two
+  // thirds of the tile's height.
+  const appx = path.join(resources, 'appx');
+  await mkdir(appx, { recursive: true });
+  for (const [name, size] of /** @type {const} */ ([
+    ['StoreLogo', 50],
+    ['Square44x44Logo', 44],
+  ])) {
+    for (const scale of [1, 2]) {
+      await writeFile(
+        path.join(appx, `${name}.scale-${scale * 100}.png`),
+        await rasterize(size * scale),
+      );
+    }
+  }
+  for (const target of [16, 24, 32, 48, 256]) {
+    const png = await rasterize(target);
+    await writeFile(path.join(appx, `Square44x44Logo.targetsize-${target}.png`), png);
+    await writeFile(
+      path.join(appx, `Square44x44Logo.targetsize-${target}_altform-unplated.png`),
+      png,
+    );
+  }
+  for (const [name, width, height] of /** @type {const} */ ([
+    ['Square150x150Logo', 150, 150],
+    ['Wide310x150Logo', 310, 150],
+  ])) {
+    for (const scale of [1, 2]) {
+      const png = await rasterize((height * scale * 2) / 3, width * scale, height * scale);
+      await writeFile(path.join(appx, `${name}.scale-${scale * 100}.png`), png);
+    }
+  }
 
   const previewIndex = process.argv.indexOf('--preview');
   const previewPath = previewIndex === -1 ? undefined : process.argv[previewIndex + 1];

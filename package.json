@@ -35,7 +35,8 @@
     "typecheck": "tsc -b tsconfig.json",
     "build:native": "node scripts/build-native.mjs",
     "build:ffmpeg": "node scripts/build-ffmpeg.mjs",
-    "package": "npm run build && node scripts/package-desktop.mjs"
+    "package": "npm run build && node scripts/package-desktop.mjs",
+    "package:store": "npm run build && node scripts/package-desktop.mjs --store"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

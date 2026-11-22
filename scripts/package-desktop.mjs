@@ -8,11 +8,15 @@
  * its manifest, the FFmpeg runtime (docs/decisions/ADR-008).
  *
  *   npm run package
+ *   npm run package:store
  *
- * It needs `npm run build` (run by `npm run package`) and the recorder host
- * from `node scripts/build-native.mjs`. It writes build/release/usee-<version>-
+ * It needs `npm run build` (run by both scripts) and the recorder host from
+ * `node scripts/build-native.mjs`. It writes build/release/usee-<version>-
  * setup.exe and build/release/win-unpacked/. The installer is signed only
  * when signing credentials are configured; nothing here supplies them.
+ * With --store it writes build/release/usee-<version>-store.appx instead, the
+ * package for the Microsoft Store, which signs it (docs/release.md,
+ * "Microsoft Store").
  */
 import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
@@ -31,6 +35,17 @@ const ffmpeg = path.join(root, 'build', 'ffmpeg', 'resources', 'ffmpeg');
 const staging = path.join(root, 'build', 'package', 'app');
 const notices = path.join(root, 'build', 'package', 'notices');
 const output = path.join(root, 'build', 'release');
+const forStore = process.argv.includes('--store');
+
+// The Microsoft Store product, as Partner Center's Product identity page
+// names it. The display name must be one of the names reserved for it.
+const store = {
+  identityName: 'techuhat.Usee3DMotion-ScreenRecoder',
+  publisher: 'CN=20FA8C00-8CAA-408F-9AC1-DA779DD34040',
+  publisherDisplayName: 'techuhat',
+  displayName: 'Usee 3D Motion - Screen Recoder',
+  description: 'A free, open-source screen recorder and editor for Windows.',
+};
 
 /** @param {string} message */
 function fail(message) {
@@ -90,7 +105,8 @@ await writeFile(
       name: 'usee',
       productName: desktopPackage.productName,
       version: desktopPackage.version,
-      description: desktopPackage.description,
+      // Windows shows the Store package's description to its users.
+      description: forStore ? store.description : desktopPackage.description,
       author: 'usee',
       main: desktopPackage.main,
       private: true,
@@ -142,13 +158,19 @@ if (electronVersion === undefined) {
 
 await build({
   projectDir: staging,
-  targets: Platform.WINDOWS.createTarget('nsis', Arch.x64),
+  targets: Platform.WINDOWS.createTarget(forStore ? 'appx' : 'nsis', Arch.x64),
   publish: 'never',
   config: {
     appId: 'app.usee.desktop',
     productName: desktopPackage.productName,
     electronVersion,
-    directories: { output },
+    // The Store package's images are in build-resources/appx.
+    directories: forStore
+      ? { output, buildResources: path.join(desktop, 'build-resources') }
+      : { output },
+    // The Windows SDK 10.0.26100 tools: the default bundle's makepri.exe
+    // fails on Windows 11 (PRI191, 0x8007007e) when it indexes the images.
+    ...(forStore ? { toolsets: { winCodeSign: '1.1.0' } } : {}),
     files: ['dist/**/*', 'package.json'],
     asar: true,
     npmRebuild: false,
@@ -185,11 +207,29 @@ await build({
       shortcutName: desktopPackage.productName,
       artifactName: '${productName}-${version}-setup.${ext}',
     },
+    appx: {
+      identityName: store.identityName,
+      publisher: store.publisher,
+      publisherDisplayName: store.publisherDisplayName,
+      displayName: store.displayName,
+      applicationId: 'usee',
+      backgroundColor: '#141831',
+      languages: ['en-US'],
+      // runFullTrust, which every desktop app needs, and the microphone a
+      // recording may use. Capture needs nothing more: the host records
+      // through Windows.Graphics.Capture with the border Windows draws.
+      capabilities: ['runFullTrust', 'microphone'],
+      // Windows 10 version 2004, the oldest usee supports.
+      minVersion: '10.0.19041.0',
+      maxVersionTested: '10.0.26100.0',
+      artifactName: '${productName}-${version}-store.${ext}',
+    },
   },
 });
 
+const packaged = forStore ? 'Packaged usee for the Microsoft Store' : 'Packaged usee';
 process.stdout.write(
   shipsFfmpeg
-    ? `Packaged usee ${desktopPackage.version} with its reviewed FFmpeg runtime in ${output}.\n`
-    : `Packaged usee ${desktopPackage.version} in ${output}, without FFmpeg: no legal review has accepted a runtime (docs/decisions/ADR-008), so the installed app records and edits but cannot export.\n`,
+    ? `${packaged} ${desktopPackage.version} with its reviewed FFmpeg runtime in ${output}.\n`
+    : `${packaged} ${desktopPackage.version} in ${output}, without FFmpeg: no legal review has accepted a runtime (docs/decisions/ADR-008), so the installed app records and edits but cannot export.\n`,
 );
