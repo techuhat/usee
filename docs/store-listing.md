@@ -10,11 +10,13 @@ What usee's Store submission says, field by field, for the product "Usee 3D Moti
 
 ## Properties
 
-- Category: Photo & video.
-- Privacy policy: https://techuhat.github.io/usee/privacy.html
+- Category: Photo & video; secondary category: Productivity.
+- Does it access, collect or transmit personal information: yes. Recordings of the screen and the microphone can hold it, even though usee keeps them on the computer and sends nothing. Privacy policy: https://techuhat.github.io/usee/privacy.html
 - Website: https://techuhat.github.io/usee/
-- Support contact: https://github.com/techuhat/usee/issues
-- Product declarations: the defaults.
+- Support contact: https://github.com/techuhat/usee/issues. No phone number or address.
+- Display mode: none; usee is not a Mixed Reality app.
+- Product declarations: no purchases outside the Store, and no claim of accessibility testing, which has not been done. Windows backing up the app's data to OneDrive is turned off, so its settings and logs stay on the computer, as PRIVACY.md says. Installing to other drives stays allowed.
+- System requirements, minimum: 4 GB of memory, DirectX 11, an x64 processor. Recommended: 8 GB of memory, a microphone for narration, and a graphics card with a hardware H.264 encoder, which makes exports faster. usee's own peak while exporting was 0.9 GB at 1080p and 1.4 GB at 4K (docs/development-phases.md, the soak gate).
 
 ## Age ratings
 
