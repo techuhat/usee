@@ -1,7 +1,7 @@
 name: Release
 
 # A tag v<version> builds the installer with the FFmpeg runtime ADR-012 accepted and publishes
-# it as a GitHub pre-release, beside FFmpeg's source and the runtime's build.json
+# it as the latest GitHub release, beside FFmpeg's source and the runtime's build.json
 # (docs/release.md). A push to the release-check branch builds the same and publishes nothing.
 on:
   push:
@@ -105,7 +105,7 @@ jobs:
           - \`ffmpeg-9.0.2.tar.xz\` and \`build.json\` are the source of the FFmpeg usee exports with and how it was built, under the LGPL 2.1 or later ([ADR-012](https://github.com/techuhat/usee/blob/main/docs/decisions/ADR-012-ffmpeg-release.md)).
           - [Code signing policy](https://github.com/techuhat/usee#-code-signing-policy) and [privacy policy](https://github.com/techuhat/usee/blob/main/PRIVACY.md)
           EOF
-          gh release create "$GITHUB_REF_NAME" --prerelease --title "usee $version" \
+          gh release create "$GITHUB_REF_NAME" --title "usee $version" \
             --notes-file notes.md \
             "build/release/usee-$version-setup.exe" \
             build/ffmpeg-source/ffmpeg-9.0.2.tar.xz \
