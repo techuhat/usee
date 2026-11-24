@@ -44,8 +44,11 @@ const store = {
   publisher: 'CN=20FA8C00-8CAA-408F-9AC1-DA779DD34040',
   publisherDisplayName: 'techuhat',
   displayName: 'Usee 3D Motion - Screen Recoder',
-  description: 'A free, open-source screen recorder and editor for Windows.',
 };
+
+// What Windows shows people as the app's description: in the installer's and
+// the Store package's details, and what winget's tools read as its summary.
+const description = 'A free, open-source screen recorder and editor for Windows.';
 
 /** @param {string} message */
 function fail(message) {
@@ -57,7 +60,7 @@ if (process.platform !== 'win32') {
   fail('The installer builds on Windows only.');
 }
 
-/** @type {{ productName: string, version: string, description: string, main: string, devDependencies: Record<string, string> }} */
+/** @type {{ productName: string, version: string, main: string, devDependencies: Record<string, string> }} */
 const desktopPackage = JSON.parse(await readFile(path.join(desktop, 'package.json'), 'utf8'));
 for (const built of [
   desktopPackage.main,
@@ -105,8 +108,7 @@ await writeFile(
       name: 'usee',
       productName: desktopPackage.productName,
       version: desktopPackage.version,
-      // Windows shows the Store package's description to its users.
-      description: forStore ? store.description : desktopPackage.description,
+      description,
       author: 'usee',
       main: desktopPackage.main,
       private: true,
