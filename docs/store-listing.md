@@ -100,7 +100,20 @@ In this order, from `docs/store/screenshots/` (1440 × 900). They show usee's bu
 | 1:1 Box art                                   | `box-art-2160.png`         | 2160 × 2160 |
 | 1:1 App tile icon, under Store display images | `app-tile-300.png`         | 300 × 300   |
 
-There is no trailer, and so no 16:9 Super hero art, which is required only with a trailer; the Xbox images do not apply.
+The Xbox images do not apply.
+
+### Trailer
+
+Under Trailers and additional assets. The trailer plays at the top of the listing only when there is a 16:9 Super hero art, and that image may carry no text.
+
+| Field               | Value                                                                         |
+| ------------------- | ----------------------------------------------------------------------------- |
+| Trailer title       | usee: screen recordings that look edited                                      |
+| Trailer             | `usee-trailer.mp4`: 46 seconds, 1920 × 1080, H.264 High at 30 fps, no sound   |
+| Thumbnail           | `trailer-thumbnail.png`, 1920 × 1080: the icon and the name beside the editor |
+| 16:9 Super hero art | `docs/store/super-hero-art-3840x2160.png`: the icon alone, with no words      |
+
+usee recorded the trailer itself: its own website, used on a real screen, then the editor's features one after another, each named by a caption. The captions sit centred and clear of the bottom edge, because some Store layouts crop the top and bottom. The trailer shows no age rating, which the Store does not allow in trailers. The video and its thumbnail are kept outside the repository.
 
 ### Keywords
 

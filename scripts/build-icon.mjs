@@ -150,18 +150,18 @@ export function iconSvg(size) {
 
 /**
  * The Store listing's key art: the icon over a deep field with the tally
- * light's glow behind it, the name under it and, on the 9:16 poster, a line
- * on what usee is.
+ * light's glow behind it and, under it, the name, the name and a line on what
+ * usee is, or no words at all (the Super hero art may carry no text).
  * @param {number} width
  * @param {number} height
  * @param {number} iconSize
- * @param {boolean} tagline
+ * @param {'name' | 'tagline' | 'none'} words
  */
-function keyArtSvg(width, height, iconSize, tagline) {
+function keyArtSvg(width, height, iconSize, words) {
   const cx = width / 2;
-  const name = iconSize * 0.34;
+  const name = words === 'none' ? 0 : iconSize * 0.34;
   const line = iconSize * 0.075;
-  const block = iconSize + name * 1.15 + (tagline ? line * 2.2 : 0);
+  const block = iconSize + name * 1.15 + (words === 'tagline' ? line * 2.2 : 0);
   const top = (height - block) / 2 - height * 0.02;
   const baseline = top + iconSize + name * 1.1;
   const font = "'Segoe UI Variable Display', 'Segoe UI', sans-serif";
@@ -183,8 +183,10 @@ function keyArtSvg(width, height, iconSize, tagline) {
       '<svg xmlns="http://www.w3.org/2000/svg" ',
       `<svg x="${cx - iconSize / 2}" y="${top}" `,
     ),
-    `<text x="${cx}" y="${baseline}" text-anchor="middle" font-family="${font}" font-weight="600" font-size="${name}" letter-spacing="${-name * 0.02}" fill="${PAPER}">usee</text>`,
-    tagline
+    words === 'none'
+      ? ''
+      : `<text x="${cx}" y="${baseline}" text-anchor="middle" font-family="${font}" font-weight="600" font-size="${name}" letter-spacing="${-name * 0.02}" fill="${PAPER}">usee</text>`,
+    words === 'tagline'
       ? `<text x="${cx}" y="${baseline + line * 2}" text-anchor="middle" font-family="${font}" font-size="${line}" fill="#aab3d6">Screen recorder and editor for Windows</text>`
       : '',
     '</svg>',
@@ -307,14 +309,17 @@ async function main() {
     }
   }
   // The Store listing's images (docs/store-listing.md): the 1:1 app tile icon,
-  // and the key art, 1:1 box art and the 9:16 poster Windows shows as the logo.
+  // and the key art: 1:1 box art, the 9:16 poster Windows shows as the logo,
+  // and the 16:9 Super hero art shown with the trailer, with the icon clear
+  // of the bottom third, which the Store may cover with a gradient.
   const store = path.join(root, 'docs', 'store');
   await writeFile(path.join(store, 'app-tile-300.png'), await rasterize(300));
-  for (const [file, width, height, iconSize, tagline] of /** @type {const} */ ([
-    ['box-art-2160.png', 2160, 2160, 900, false],
-    ['poster-art-1440x2160.png', 1440, 2160, 720, true],
+  for (const [file, width, height, iconSize, words] of /** @type {const} */ ([
+    ['box-art-2160.png', 2160, 2160, 900, 'name'],
+    ['poster-art-1440x2160.png', 1440, 2160, 720, 'tagline'],
+    ['super-hero-art-3840x2160.png', 3840, 2160, 720, 'none'],
   ])) {
-    const svg = keyArtSvg(width, height, iconSize, tagline);
+    const svg = keyArtSvg(width, height, iconSize, words);
     await writeFile(path.join(store, file), await rasterizeSvg(svg, width, height));
   }
 
