@@ -1,6 +1,6 @@
 # Microsoft Store listing
 
-What usee's Store submission says, field by field, for the product "Usee 3D Motion - Screen Recoder" in Partner Center. The package is described in [release.md](release.md), "Microsoft Store". When the listing changes, change this file with it.
+What usee's Store submission says, field by field, for the product "Usee 3D Motion - Screen Recoder" in Partner Center, live since 2026-11-23 at [apps.microsoft.com/detail/9n7gb8ld2g62](https://apps.microsoft.com/detail/9n7gb8ld2g62). The package is described in [release.md](release.md), "Microsoft Store". When the listing changes, change this file with it.
 
 ## Pricing and availability
 

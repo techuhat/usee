@@ -4,6 +4,10 @@ Notable changes to usee are listed here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Added
+
+- usee is in the [Microsoft Store](https://apps.microsoft.com/detail/9n7gb8ld2g62), which installs it without a SmartScreen warning and keeps it up to date; the README, the website and the release notes point to it.
+
 ## [0.1.2] - 2026-11-22
 
 ### Added
