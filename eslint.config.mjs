@@ -50,6 +50,11 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
+    // The website's one script runs in the browser.
+    files: ['site/**/*.js'],
+    languageOptions: { globals: globals.browser, sourceType: 'script' },
+  },
+  {
     files: ['apps/desktop/src/main/**/*.ts', 'apps/desktop/src/preload/**/*.ts', 'tests/**/*.ts'],
     languageOptions: { globals: globals.node },
   },

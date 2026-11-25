@@ -3,15 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; media-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'"
+    />
     <title>usee: free screen recorder and editor for Windows</title>
     <meta
       name="description"
-      content="usee is a free, open-source screen recorder for Windows. It zooms in where you click, smooths the cursor and frames the picture, on your computer alone."
+      content="usee is a free, open-source screen recorder for Windows. It zooms in where you click, smooths the cursor and turns the picture in 3D, on your computer alone."
     />
+    <link rel="canonical" href="https://techuhat.github.io/usee/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="usee" />
+    <meta property="og:title" content="usee: screen recordings that look edited" />
+    <meta
+      property="og:description"
+      content="A free, open-source screen recorder for Windows: auto zoom on every click, a 3D camera and 4K export. No account, no watermark, no telemetry."
+    />
+    <meta property="og:url" content="https://techuhat.github.io/usee/" />
+    <meta property="og:image" content="https://techuhat.github.io/usee/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="usee: screen recordings that look edited. The usee editor turned in 3D on an amber disc."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0d1020" />
     <link rel="icon" href="assets/usee-mark.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to the content</a>
@@ -29,7 +51,9 @@
       <nav aria-label="Main">
         <a href="#features">Features</a>
         <a href="#privacy">Privacy</a>
-        <a href="#developers">Developers</a>
+        <a href="#devlog">Devlog</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#developers">Open source</a>
         <a class="button button-small" href="#download">Download</a>
       </nav>
     </header>
@@ -40,22 +64,27 @@
           <h1 id="hero-title">Screen recordings that look edited</h1>
           <p class="lead">
             usee is a free, open-source screen recorder for Windows. It zooms in where you click,
-            smooths the cursor and frames the picture, on your computer alone.
+            smooths the cursor and turns the picture in 3D, all on your own computer.
           </p>
           <div class="hero-actions">
             <a class="button" href="https://apps.microsoft.com/detail/9n7gb8ld2g62"
               >Get it from Microsoft</a
             >
-            <p class="note">Free and open source. Windows 10 and 11, x64.</p>
+            <a class="text-link" href="https://github.com/techuhat/usee"
+              >Read the source on GitHub</a
+            >
           </div>
+          <p class="note">
+            No account, no watermark, no “your free trial has ended” email. For Windows 10 and 11.
+          </p>
         </div>
         <div class="hero-stage" aria-hidden="true"></div>
         <figure class="hero-shot shutter">
           <img
-            src="assets/editor.png"
-            width="1440"
-            height="900"
-            alt="The usee editor: a recording turned in 3D over a peach background, the 3D camera panel with its five moves, and the timeline"
+            src="assets/editor-hero.jpg"
+            width="1920"
+            height="1080"
+            alt="The usee editor: a recording turned in 3D on a sunrise background, with a text label and a blur; the Canvas panel with its backgrounds; and a timeline with automatic zooms, the text, the blur and a 3D zoom"
           />
         </figure>
       </section>
@@ -67,35 +96,31 @@
         <figure class="plate rise">
           <img
             class="frame frame-wide"
-            src="assets/frame-wide.png"
-            width="782"
-            height="439"
+            src="assets/camera-wide.jpg"
+            width="1280"
+            height="720"
             loading="lazy"
-            alt="A usee recording in its frame on a peach background, seen whole"
+            alt="A usee export of this website, seen whole on a dusk-to-ember background"
           />
           <img
             class="frame frame-zoom"
-            src="assets/frame-zoom.png"
-            width="782"
-            height="439"
+            src="assets/camera-zoom.jpg"
+            width="1280"
+            height="720"
             loading="lazy"
-            alt="The same recording, the camera moved in close where the click was"
+            alt="The same export three seconds later: the camera has moved in on the link the pointer clicked, and a ring marks the click"
           />
           <img
             class="frame frame-turn"
-            src="assets/frame-orbit.png"
-            width="782"
-            height="439"
+            src="assets/camera-turn.jpg"
+            width="1280"
+            height="720"
             loading="lazy"
-            alt="The same recording, the camera turned in 3D as it moves"
+            alt="Later in the same export: the camera turned in 3D toward the Windows button the pointer is on"
           />
-          <svg class="lens" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <circle class="lens-ring" cx="50" cy="50" r="43" />
-            <circle class="lens-light" cx="50" cy="50" r="2.4" />
-          </svg>
         </figure>
         <div class="camera-copy">
-          <div class="shots rise" role="group" aria-label="Choose a shot">
+          <div class="shots rise" data-ui role="group" aria-label="Choose a shot">
             <label for="shot-wide">Wide</label>
             <label for="shot-zoom">Zoomed on a click</label>
             <label for="shot-turn">Turned in 3D</label>
@@ -104,8 +129,11 @@
             <h2 id="camera-title">The camera follows you</h2>
             <p>
               usee notes each click and each pause of the pointer, then moves the camera there, flat
-              or turned in 3D. These three frames come from one usee recording, and every zoom stays
-              yours to change on the timeline.
+              or turned in 3D. Your viewers can finally read the 11-pixel text in your terminal.
+            </p>
+            <p class="note">
+              These frames come from one usee export of this website, one redesign ago. Yes, it is
+              recordings all the way down.
             </p>
           </div>
           <div class="cells rise">
@@ -118,6 +146,7 @@
       <section class="board" id="features" aria-labelledby="features-title">
         <div class="tile tile-heading rise">
           <h2 id="features-title">Everything the edit needs</h2>
+          <p>And nothing your finance team has to approve.</p>
         </div>
 
         <div class="tile tile-keys rise">
@@ -125,20 +154,23 @@
             <kbd>Ctrl</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>F10</kbd>
           </div>
           <p class="caption">
-            <strong>Record</strong>A screen, a window or an area. Stop with these keys.
+            <strong>Record</strong>A screen, a window or an area. One more shortcut to learn after
+            Ctrl+C and Ctrl+V.
           </p>
         </div>
 
         <div class="tile tile-speed rise">
           <div class="ui ui-speed" data-ui aria-hidden="true"><span>4</span>×</div>
-          <p class="caption"><strong>Speed</strong>A quarter speed to four times, clip by clip.</p>
+          <p class="caption">
+            <strong>Speed</strong>Up to 4× on the boring parts. npm install never looked so fast.
+          </p>
         </div>
 
         <div class="tile tile-video rise">
           <div class="tile-media">
             <video
               src="assets/usee-export.mp4"
-              poster="assets/frame-orbit.png"
+              poster="assets/export-poster.jpg"
               width="960"
               height="540"
               autoplay
@@ -146,17 +178,27 @@
               loop
               playsinline
               preload="metadata"
-              aria-label="A seven-second clip exported by usee: the camera moves in on the recording and turns in 3D"
+              aria-label="Seven seconds of a usee export: the camera turns in 3D toward the tab the pointer clicks, on a green background"
             ></video>
           </div>
-          <p class="caption"><strong>Export</strong>MP4 up to 4K. This clip is a usee export.</p>
+          <p class="caption">
+            <strong>Export</strong>MP4 up to 4K. This clip is a usee export, obviously.
+          </p>
         </div>
 
-        <div class="tile tile-toggle rise">
-          <div class="ui ui-toggle" data-ui aria-hidden="true">
-            <span class="switch"><span></span></span>
+        <div class="tile tile-canvas rise">
+          <div class="tile-media tile-media-top">
+            <img
+              src="assets/canvas-panel.jpg"
+              width="600"
+              height="690"
+              loading="lazy"
+              alt="The Canvas panel in the usee editor: shapes from Auto to 9:16, and a grid of gradient backgrounds"
+            />
           </div>
-          <p class="caption"><strong>Auto zoom</strong>In on every click and every pause.</p>
+          <p class="caption">
+            <strong>Canvas</strong>Backgrounds, rounded corners, a shadow, and 9:16 for Shorts.
+          </p>
         </div>
 
         <div class="tile tile-3d rise">
@@ -170,75 +212,131 @@
             />
           </div>
           <p class="caption">
-            <strong>3D camera</strong>Tilt, turn and rotate, or one of five moves.
+            <strong>3D camera</strong>Tilt, turn, orbit. Your Excel tutorial, now cinematic.
           </p>
         </div>
 
         <div class="tile tile-timeline rise">
           <div class="tile-media tile-media-left">
             <img
-              src="assets/timeline.png"
-              width="1280"
-              height="126"
+              src="assets/timeline.jpg"
+              width="1404"
+              height="150"
               loading="lazy"
-              alt="The usee timeline: the recording's frames and sound along its clip, and a 3D zoom below it"
+              alt="The usee timeline: the recording's pictures along its clip, with lanes for automatic zooms, a text, a blur and a 3D zoom"
             />
           </div>
           <p class="caption">
-            <strong>Timeline</strong>Split, trim and undo, with each clip's frames and sound.
+            <strong>Timeline</strong>Split, trim and undo. Ctrl+Z works here, unlike in production.
           </p>
         </div>
 
         <div class="tile tile-cursor rise">
           <div class="tile-media">
             <img
-              src="assets/click.png"
-              width="260"
-              height="156"
+              src="assets/cursor.jpg"
+              width="640"
+              height="400"
               loading="lazy"
-              alt="A click in a usee recording: the drawn cursor and the ring that spreads from it"
-            />
-          </div>
-          <p class="caption"><strong>Cursor</strong>Smooth, with an effect on every click.</p>
-        </div>
-
-        <div class="tile tile-blur rise">
-          <div class="tile-media">
-            <img
-              src="assets/blur.png"
-              width="300"
-              height="180"
-              loading="lazy"
-              alt="A privacy blur in a usee recording: part of the picture blurred out"
+              alt="A click in a usee export: the hand cursor on a link, with an amber ring around the click"
             />
           </div>
           <p class="caption">
-            <strong>Annotations</strong>Words, arrows, boxes, and blur for anything private.
+            <strong>Cursor</strong>Smoothed, with a ring on each click. Nobody sees you wiggle it.
+          </p>
+        </div>
+
+        <div class="tile tile-annotate rise">
+          <div class="tile-media tile-media-top">
+            <img
+              src="assets/annotation-panel.jpg"
+              width="600"
+              height="850"
+              loading="lazy"
+              alt="The annotation panel in the usee editor: text, arrow or box, the words, a label and six colours"
+            />
+          </div>
+          <p class="caption">
+            <strong>Annotations</strong>Arrows for the button. Blur for the .env you never opened.
           </p>
         </div>
       </section>
 
-      <section class="flow" id="how" aria-labelledby="flow-title">
-        <h2 id="flow-title" class="rise">From click to MP4</h2>
-        <div class="bar rise" data-ui>
-          <div class="stage stage-count">
-            <h3 class="stage-time">Three seconds</h3>
-            <p>First, a countdown, and usee steps aside.</p>
-          </div>
-          <div class="stage stage-record">
-            <h3 class="stage-time">As long as you need</h3>
-            <p>Then record a screen, a window or an area.</p>
-          </div>
-          <div class="stage stage-edit">
-            <h3 class="stage-time">A few minutes</h3>
-            <p>Then edit: zooms, cursor and frame are already in place.</p>
-          </div>
-          <div class="stage stage-export">
-            <h3 class="stage-time">About a minute</h3>
-            <p>Last, export an MP4, up to 4K.</p>
-          </div>
+      <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+        <div class="pricing-head">
+          <h2 id="pricing-title" class="rise">Pick a plan. Any plan.</h2>
+          <p class="rise">
+            All three are the same app. Choose the one that sounds best in your standup.
+          </p>
         </div>
-        <p class="note rise">Times for a two-minute recording on a desktop PC.</p>
+        <div class="table-wrap rise">
+          <table class="plans">
+            <caption class="sr-only">
+              usee's plans compared: all three cost nothing and include everything
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">What you get</span></th>
+                <th scope="col">Hobby</th>
+                <th scope="col">Pro</th>
+                <th scope="col">Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="plans-price">
+                <th scope="row">Price</th>
+                <td data-plan="Hobby">$0</td>
+                <td data-plan="Pro">$0</td>
+                <td data-plan="Enterprise">$0</td>
+              </tr>
+              <tr>
+                <th scope="row">Auto zoom, 3D camera, cursor effects</th>
+                <td data-plan="Hobby">All of them</td>
+                <td data-plan="Pro">All of them</td>
+                <td data-plan="Enterprise">All of them</td>
+              </tr>
+              <tr>
+                <th scope="row">Export</th>
+                <td data-plan="Hobby">MP4 up to 4K</td>
+                <td data-plan="Pro">MP4 up to 4K</td>
+                <td data-plan="Enterprise">MP4 up to 4K</td>
+              </tr>
+              <tr>
+                <th scope="row">Watermark</th>
+                <td data-plan="Hobby">None</td>
+                <td data-plan="Pro">None</td>
+                <td data-plan="Enterprise">None</td>
+              </tr>
+              <tr>
+                <th scope="row">Account to create</th>
+                <td data-plan="Hobby">None</td>
+                <td data-plan="Pro">None</td>
+                <td data-plan="Enterprise">None</td>
+              </tr>
+              <tr>
+                <th scope="row">Telemetry</th>
+                <td data-plan="Hobby">None</td>
+                <td data-plan="Pro">None</td>
+                <td data-plan="Enterprise">None</td>
+              </tr>
+              <tr>
+                <th scope="row">Source code</th>
+                <td data-plan="Hobby">MIT licence</td>
+                <td data-plan="Pro">MIT licence</td>
+                <td data-plan="Enterprise">MIT licence</td>
+              </tr>
+              <tr>
+                <th scope="row">Support</th>
+                <td data-plan="Hobby">GitHub issues</td>
+                <td data-plan="Pro">GitHub issues, read with a serious face</td>
+                <td data-plan="Enterprise">
+                  GitHub issues, and a quarterly review where we agree it is still free
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note rise">Also ₹0, €0 and £0. Tax on $0 is $0; we asked a calculator.</p>
       </section>
 
       <section class="privacy" id="privacy" aria-labelledby="privacy-title">
@@ -270,39 +368,227 @@
                 each recording, and usee forgets it.
               </p>
             </div>
+            <div class="rise">
+              <h3>And this website?</h3>
+              <p>
+                It does not know you are here either: no cookies, no analytics, nothing loaded from
+                other sites. Open the Network tab and check; we will wait.
+              </p>
+            </div>
             <a class="button rise" href="privacy.html">Read the privacy policy</a>
           </div>
         </div>
       </section>
 
+      <section class="devlog" id="devlog" aria-labelledby="devlog-title">
+        <div class="devlog-head">
+          <h2 id="devlog-title" class="rise">Shipped lately</h2>
+          <p class="rise">
+            The devlog: what changed, in words people use. The version for machines is the
+            <a href="https://github.com/techuhat/usee/blob/main/CHANGELOG.md">changelog</a>.
+          </p>
+          <a class="button button-quiet rise" href="updates.html">Read the whole devlog</a>
+        </div>
+        <div class="log">
+          <!-- The four newest entries of updates.html; add new ones to both, newest first. -->
+          <article class="entry rise">
+            <time datetime="2026-11-25">25 Nov 2026</time>
+            <div>
+              <h3>A trailer, made with usee</h3>
+              <p>
+                The Microsoft Store asked for a trailer, so we made one with usee: the screen
+                recordings and clips in it are all usee's own. No other screen recorder was harmed.
+              </p>
+            </div>
+          </article>
+          <article class="entry rise">
+            <time datetime="2026-11-23">23 Nov 2026</time>
+            <div>
+              <h3>usee is in the Microsoft Store</h3>
+              <p>
+                It installs without a SmartScreen warning and keeps itself up to date. Certification
+                took about a day; we refreshed Partner Center roughly four hundred times.
+              </p>
+            </div>
+          </article>
+          <article class="entry rise">
+            <time datetime="2026-11-22">22 Nov 2026</time>
+            <div>
+              <h3>usee 0.1.2</h3>
+              <p>
+                Electron 45, a Microsoft Store package, and a privacy policy that covers it.
+                Releases also stopped calling themselves pre-releases. They grow up so fast.
+              </p>
+            </div>
+          </article>
+          <article class="entry rise">
+            <time datetime="2026-11-20">20 Nov 2026</time>
+            <div>
+              <h3>usee 0.1.1</h3>
+              <p>
+                A privacy policy, and a fix for a welcome tour that could close the next welcome
+                tour. A race condition, naturally.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="roadmap" id="roadmap" aria-labelledby="roadmap-title">
+        <h2 id="roadmap-title" class="rise">What is done, and what is next</h2>
+        <p class="roadmap-lede rise">
+          usee is built in phases. Each has a written plan and a check it must pass before the next
+          one starts, and all of it is public in the repository's docs.
+        </p>
+        <ol class="phases rise" aria-label="Development phases, in order">
+          <li class="phase-done"><span>Foundation</span><small>Done 17 Oct</small></li>
+          <li class="phase-done"><span>Recording</span><small>Done 17 Oct</small></li>
+          <li class="phase-done"><span>Timeline</span><small>Done 17 Oct</small></li>
+          <li class="phase-done"><span>Cursor and effects</span><small>Done 18 Oct</small></li>
+          <li class="phase-done"><span>Auto zoom and 3D camera</span><small>Done 19 Oct</small></li>
+          <li class="phase-done"><span>Canvas and speed</span><small>Done 20 Oct</small></li>
+          <li class="phase-done"><span>3D motion</span><small>Done 22 Oct</small></li>
+          <li class="phase-now">
+            <span>Export and hardening</span>
+            <small>Now: signing the GitHub installer, long 4K exports on real recordings</small>
+          </li>
+          <li class="phase-started">
+            <span>Expansion</span>
+            <small>Started: window and area capture, annotations</small>
+          </li>
+        </ol>
+        <div class="roadmap-grid">
+          <div class="rise">
+            <h3>Next, in this order</h3>
+            <ol class="next">
+              <li>System audio, chosen for each recording like the microphone</li>
+              <li>Image backgrounds, with blur</li>
+              <li>More annotations: shapes, callouts, a magnifier, and ones that move</li>
+              <li>Cursor styles, hiding an idle cursor, and click sounds: ASMR for your mouse</li>
+              <li>Volume for each clip, and background music</li>
+              <li>GIF export, however you pronounce it, and more sizes</li>
+              <li>Named presets for your looks</li>
+              <li>Crop and inset</li>
+              <li>Importing a video you already have</li>
+              <li>Your own watermark, if you want one; usee never adds its own</li>
+            </ol>
+          </div>
+          <div class="rise">
+            <h3>Decision first</h3>
+            <p>
+              Each of these needs a written decision, with a privacy or licence review, before any
+              code:
+            </p>
+            <ul class="links">
+              <li>Webcam, and layouts with it</li>
+              <li>Captions and silence removal, with speech recognition on your computer</li>
+              <li>Anything that reads keystrokes. We would rather not see your passwords</li>
+              <li>Noise reduction</li>
+              <li>Device frames, and recording a phone over USB</li>
+              <li>Share links. Until then, recordings stay on your computer</li>
+              <li>macOS. Also, someone has to buy a Mac</li>
+            </ul>
+          </div>
+        </div>
+        <p class="roadmap-links rise">
+          The details:
+          <a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">the roadmap</a>,
+          <a href="https://github.com/techuhat/usee/blob/main/docs/development-phases.md"
+            >the development phases</a
+          >
+          and
+          <a href="https://github.com/techuhat/usee/tree/main/docs/decisions"
+            >the architecture decisions</a
+          >.
+        </p>
+      </section>
+
       <section class="dev" id="developers" aria-labelledby="dev-title">
         <h2 id="dev-title" class="rise">Built in the open</h2>
+        <p class="dev-lede rise">
+          Every line of code, every architecture decision and every CI run is public. The one thing
+          kept private is a security report, until its fix ships.
+        </p>
         <div class="dev-grid">
-          <pre class="rise"><code>git clone https://github.com/techuhat/usee.git
+          <div class="rise">
+            <pre><code>git clone https://github.com/techuhat/usee.git
 cd usee
 npm install
-npm run build:native
+npm run build:native   # the C++ recorder: time for chai
 npm run dev</code></pre>
+            <p class="note">That is the whole onboarding. No wiki page last edited in 2019.</p>
+          </div>
           <div class="dev-text rise">
             <p>
               usee is an Electron and React app with a C++20 recorder host, which captures through
-              Windows Graphics Capture and Media Foundation; FFmpeg encodes the export. It is
-              MIT-licensed, and GitHub Actions builds and tests every change and every release.
+              Windows Graphics Capture and Media Foundation; FFmpeg encodes the export.
             </p>
+            <ul class="facts">
+              <li><strong>MIT licensed.</strong> Fork it, ship it, learn from it.</li>
+              <li>
+                <strong>536 unit tests and 24 end-to-end tests</strong> run on every push, in
+                public.
+              </li>
+              <li>
+                <strong>12 architecture decision records</strong>, so “why is it like this?” has a
+                written answer.
+              </li>
+              <li>
+                <strong>Releases built by GitHub Actions</strong> from this public source, never on
+                someone's laptop.
+              </li>
+            </ul>
             <ul class="links">
               <li><a href="https://github.com/techuhat/usee">Source on GitHub</a></li>
+              <li>
+                <a href="https://github.com/techuhat/usee/blob/main/docs/architecture.md"
+                  >Architecture</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="join" id="contribute">
+          <div class="join-intro rise">
+            <h3>Pull requests welcome</h3>
+            <p>So far usee is one developer, a lot of tests and zero meetings. There is room.</p>
+          </div>
+          <ul class="ways rise">
+            <li>
+              <a href="https://github.com/techuhat/usee/issues/new/choose">Report a bug</a>. Record
+              it with usee; we appreciate the irony.
+            </li>
+            <li>
+              Take something from the roadmap's Next list: say “I'll take this” in an issue, so
+              nobody builds it twice.
+            </li>
+            <li>Fix the docs. If a sentence confused you, it will confuse the next person too.</li>
+            <li>
+              <a href="https://github.com/techuhat/usee">Star the repository</a>. It costs nothing
+              and makes a developer's whole week.
+            </li>
+          </ul>
+          <div class="join-rules rise">
+            <p>
+              Found a security hole? Please do not open an issue.
+              <a href="https://github.com/techuhat/usee/security/advisories/new"
+                >Report it privately</a
+              >, and we will fix it and credit you.
+            </p>
+            <ul class="links">
               <li>
                 <a href="https://github.com/techuhat/usee/blob/main/CONTRIBUTING.md"
                   >Contributing guide</a
                 >
               </li>
               <li>
-                <a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">Roadmap</a>
+                <a href="https://github.com/techuhat/usee/blob/main/CODE_OF_CONDUCT.md"
+                  >Code of Conduct</a
+                >
               </li>
               <li>
-                <a href="https://github.com/techuhat/usee/blob/main/docs/architecture.md"
-                  >Architecture</a
-                >
+                <a href="https://github.com/techuhat/usee/blob/main/SECURITY.md">Security policy</a>
               </li>
             </ul>
           </div>
@@ -373,13 +659,15 @@ npm run dev</code></pre>
         <ul>
           <li><a href="#download">Download</a></li>
           <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing, such as it is</a></li>
           <li><a href="privacy.html">Privacy policy</a></li>
           <li><a href="#code-signing-policy">Code signing policy</a></li>
         </ul>
         <ul>
-          <li><a href="https://github.com/techuhat/usee">Source on GitHub</a></li>
+          <li><a href="updates.html">Devlog</a></li>
           <li><a href="https://github.com/techuhat/usee/releases">Releases</a></li>
           <li><a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">Roadmap</a></li>
+          <li><a href="https://github.com/techuhat/usee">Source on GitHub</a></li>
           <li>
             <a href="https://github.com/techuhat/usee/blob/main/CONTRIBUTING.md">Contributing</a>
           </li>
@@ -395,36 +683,21 @@ npm run dev</code></pre>
         </ul>
       </div>
       <div class="foot-last">
-        <p>
-          © 2026 Mohammad Umar Wajid Khan. usee is free software under the MIT License. It exports
-          with <a href="https://ffmpeg.org">FFmpeg</a>, licensed under the
-          <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL 2.1</a> or later;
-          each release carries its source.
-        </p>
+        <div>
+          <p>
+            © 2026 Mohammad Umar Wajid Khan. usee is free software under the MIT License. It exports
+            with <a href="https://ffmpeg.org">FFmpeg</a>, licensed under the
+            <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL 2.1</a> or later;
+            each release carries its source.
+          </p>
+          <p>
+            This website is plain HTML and CSS, in the repository's
+            <a href="https://github.com/techuhat/usee/tree/main/site">site folder</a>. View the
+            source: there is nothing to hide, and we checked.
+          </p>
+        </div>
         <a class="button button-small" href="https://github.com/techuhat/usee">View on GitHub</a>
       </div>
     </footer>
-
-    <script type="module">
-      // Each section's parts rise in as it comes into view; without this script, all are shown.
-      const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (motion && 'IntersectionObserver' in window) {
-        document.documentElement.classList.add('animate');
-        const seen = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                seen.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px' },
-        );
-        for (const element of document.querySelectorAll('.rise, .shutter')) {
-          seen.observe(element);
-        }
-      }
-    </script>
   </body>
 </html>

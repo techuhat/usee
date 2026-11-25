@@ -85,7 +85,7 @@ native/recorder-host/     C++20/WinRT capture process
 scripts/                  Repository checks and the native, FFmpeg and installer builds
 tests/                    Cross-package integration tests and Electron E2E tests
 docs/                     Architecture, operating rules, ADRs and the roadmap
-site/                     The website (techuhat.github.io/usee), static HTML and CSS
+site/                     The website (techuhat.github.io/usee), static HTML, CSS and one script
 ```
 
 ## Troubleshooting

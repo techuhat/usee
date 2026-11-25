@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Devlog: usee</title>
+    <meta
+      name="description"
+      content="What changed in usee, the free screen recorder for Windows, newest first: releases, features and the engineering stories behind them."
+    />
+    <link rel="canonical" href="https://techuhat.github.io/usee/updates.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="usee" />
+    <meta property="og:title" content="The usee devlog" />
+    <meta
+      property="og:description"
+      content="What changed in usee, newest first: releases, features and the engineering stories behind them."
+    />
+    <meta property="og:url" content="https://techuhat.github.io/usee/updates.html" />
+    <meta property="og:image" content="https://techuhat.github.io/usee/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1020" />
+    <link rel="icon" href="assets/usee-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to the content</a>
+
+    <header class="nav">
+      <a class="wordmark" href="./" aria-label="usee, home">
+        <svg class="mark" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+          <rect class="mark-plate" x="1" y="1" width="26" height="26" rx="8" />
+          <circle class="mark-glass" cx="14" cy="14" r="5.4" />
+          <circle class="mark-ring" cx="14" cy="14" r="6.4" />
+          <circle class="mark-light" cx="14" cy="14" r="2.6" />
+        </svg>
+        <span>usee</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="./#features">Features</a>
+        <a href="./#privacy">Privacy</a>
+        <a href="updates.html" aria-current="page">Devlog</a>
+        <a href="./#roadmap">Roadmap</a>
+        <a href="./#developers">Open source</a>
+        <a class="button button-small" href="./#download">Download</a>
+      </nav>
+    </header>
+
+    <main id="main" class="doc doc-wide">
+      <h1>Devlog</h1>
+      <p class="doc-lead">
+        What changed in usee, newest first, in words people use. The version for machines is the
+        <a href="https://github.com/techuhat/usee/blob/main/CHANGELOG.md">changelog</a>, and what
+        comes next is on the
+        <a href="https://github.com/techuhat/usee/blob/main/docs/roadmap.md">roadmap</a>.
+      </p>
+
+      <!-- Newest first. The home page shows the four newest product entries; keep it in step. -->
+      <div class="log log-pictures">
+        <article class="entry rise">
+          <time datetime="2026-11-25">25 Nov 2026</time>
+          <div>
+            <h2>This website, redesigned</h2>
+            <p>
+              Real footage from usee instead of test patterns, a roadmap, this devlog, and a pricing
+              table that took longer to write than the prices did.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/og-image.jpg"
+              width="1200"
+              height="630"
+              loading="lazy"
+              alt="The redesigned website's look: the headline beside the usee editor, turned in 3D on an amber disc"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-25">25 Nov 2026</time>
+          <div>
+            <h2>A trailer, made with usee</h2>
+            <p>
+              The Microsoft Store asked for a trailer, so we made one with usee: the screen
+              recordings and clips in it are all usee's own. No other screen recorder was harmed.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/trailer-thumbnail.jpg"
+              width="960"
+              height="540"
+              loading="lazy"
+              alt="The trailer's thumbnail: the usee mark and name beside the editor"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-23">23 Nov 2026</time>
+          <div>
+            <h2>usee is in the Microsoft Store</h2>
+            <p>
+              It installs without a SmartScreen warning and keeps itself up to date. Certification
+              took about a day; we refreshed Partner Center roughly four hundred times.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-22">22 Nov 2026</time>
+          <div>
+            <h2>usee 0.1.2</h2>
+            <p>
+              Electron 45, a Microsoft Store package, and a privacy policy that covers it. Releases
+              also stopped calling themselves pre-releases. They grow up so fast.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-21">21 Nov 2026</time>
+          <div>
+            <h2>The website goes live</h2>
+            <p>
+              Static HTML and CSS on GitHub Pages, with no cookies and nothing loaded from other
+              sites. A lot of words for “it is just a page”.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-20">20 Nov 2026</time>
+          <div>
+            <h2>usee 0.1.1</h2>
+            <p>
+              A privacy policy, and a fix for a welcome tour that could close the next welcome tour.
+              A race condition, naturally.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-18">18 Nov 2026</time>
+          <div>
+            <h2>usee 0.1.0, and the code goes public</h2>
+            <p>
+              The first release, built by GitHub Actions from the public source under the MIT
+              License. It came with an icon drawn for every size Windows shows and a welcome tour,
+              because first impressions matter.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-17">17 Nov 2026</time>
+          <div>
+            <h2>The cursor, measured</h2>
+            <p>
+              Was the drawn cursor late? We measured it on a real screen instead of arguing about
+              it: the picture runs 3.5 to 7.5 ms behind the pointer on a display, and 6.5 to 9.5 ms
+              ahead of it in a window, steady within a recording. usee now reads the pointer at the
+              picture's moment, and the smoothed cursor stays within a few pixels of the real one.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/cursor.jpg"
+              width="640"
+              height="400"
+              loading="lazy"
+              alt="A click in a usee export: the hand cursor on a link, with an amber ring around the click"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-17">17 Nov 2026</time>
+          <div>
+            <h2>Annotations</h2>
+            <p>
+              Words, arrows and boxes over the picture, drawn by the same code in the preview and in
+              the export, so what you see is what you ship.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-16">16 Nov 2026</time>
+          <div>
+            <h2>One window, or an area</h2>
+            <p>
+              Record a single window, or drag out an area of the screen. The project names a window
+              by its ID, never its title: window titles are nobody's business. Also new: a
+              three-second countdown, and pictures along each clip on the timeline.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-09">9 Nov 2026</time>
+          <div>
+            <h2>The yellow was the wrong yellow</h2>
+            <p>
+              A yellow recorded as 242, 191, 51 played back from an export as 247, 187, 44. FFmpeg
+              had converted the colours with BT.601, while players show HD video with BT.709. The
+              export now uses BT.709 and says so, and a test keeps the yellow yellow.
+            </p>
+          </div>
+          <figure class="entry-pic swatches">
+            <div class="swatch swatch-recorded">
+              <strong>242, 191, 51</strong><span>Recorded</span>
+            </div>
+            <div class="swatch swatch-exported">
+              <strong>247, 187, 44</strong><span>Exported, before the fix</span>
+            </div>
+            <figcaption>Spot the difference. The test can.</figcaption>
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-09">9 Nov 2026</time>
+          <div>
+            <h2>Killed mid-export, on purpose</h2>
+            <p>
+              A test kills usee in the middle of an export and starts it again: the export is
+              reported as failed, nothing half-written is left behind, and no process survives it.
+              Also new: usee steps aside while it records, with a red dot in the tray and
+              Ctrl+Shift+F10 to stop.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-08">8 Nov 2026</time>
+          <div>
+            <h2>Export, then export twice as fast</h2>
+            <p>
+              MP4 export works end to end, on the graphics card's encoder with Windows' own as the
+              fallback. Then it stopped seeking the video for every frame: usee now reads each
+              recording in order with WebCodecs and a small MP4 reader of its own, and a 3.5-second
+              export went from 14.4 to about 7.5 seconds.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-11-08">8 Nov 2026</time>
+          <div>
+            <h2>A 3D camera you can find</h2>
+            <p>
+              The 3D camera had been there all along, hidden behind a selection. It now has its own
+              tab, five drawn moves and an Add 3D zoom button, next to a new Home, Recordings and
+              Settings.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/panel-3d.png"
+              width="303"
+              height="230"
+              loading="lazy"
+              alt="The 3D panel in the usee editor: tilt, turn and rotate sliders, and the Gentle, Normal and Strong lens"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-10-22">22 Oct 2026</time>
+          <div>
+            <h2>3D motion</h2>
+            <p>
+              One switch gives the automatic camera depth: it pushes in toward each action with a
+              gentle turn. For the rest, five presets, a lens for each zoom and dragging to turn the
+              picture.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/camera-turn.jpg"
+              width="1280"
+              height="720"
+              loading="lazy"
+              alt="A usee export turned in 3D toward the button the pointer is on"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-10-20">20 Oct 2026</time>
+          <div>
+            <h2>Canvas and speed</h2>
+            <p>
+              Backgrounds, padding, rounded corners, a shadow, and shapes from 16:9 to 9:16. Clips
+              play from a quarter speed to four times, and the sound keeps its pitch.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-10-19">19 Oct 2026</time>
+          <div>
+            <h2>A camera, and a name</h2>
+            <p>
+              Clicks became camera moves: usee closes in just before each click and holds there.
+              Zooms learned to tilt, turn and rotate in 3D, the cursor stopped trailing the pointer,
+              and the project got its name.
+            </p>
+          </div>
+          <figure class="entry-pic">
+            <img
+              src="assets/camera-zoom.jpg"
+              width="1280"
+              height="720"
+              loading="lazy"
+              alt="A usee export zoomed in on the link the pointer clicked, with a ring marking the click"
+            />
+          </figure>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-10-18">18 Oct 2026</time>
+          <div>
+            <h2>Cursor and effects</h2>
+            <p>
+              The pointer is recorded (where it moves, its buttons and its shape, never your keys),
+              then smoothed and drawn with a ripple on each click. Zooms and blur arrived, with
+              keyframes.
+            </p>
+          </div>
+        </article>
+        <article class="entry rise">
+          <time datetime="2026-10-17">17 Oct 2026</time>
+          <div>
+            <h2>Day one</h2>
+            <p>
+              A blank Electron window that did nothing, securely. By the evening it recorded a
+              screen at 1080p and 60 fps with the microphone, and the timeline could split, trim,
+              delete and undo.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <a class="button" href="./">Back to usee</a>
+    </main>
+
+    <footer class="foot foot-small">
+      <div class="foot-last">
+        <p>© 2026 Mohammad Umar Wajid Khan. usee is free software under the MIT License.</p>
+        <a class="button button-small" href="https://github.com/techuhat/usee">View on GitHub</a>
+      </div>
+    </footer>
+  </body>
+</html>
