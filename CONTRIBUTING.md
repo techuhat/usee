@@ -5,9 +5,11 @@ Thanks for helping. usee is a free screen recorder and editor for Windows, and e
 ## Ways to help
 
 - **Report a bug.** Use the bug report form under [Issues](https://github.com/techuhat/usee/issues/new/choose). Steps to reproduce, your Windows version and your graphics card make a bug much quicker to fix.
+- **Ask a question or share an idea.** Use [Discussions](https://github.com/techuhat/usee/discussions), where answers stay findable for the next person.
 - **Suggest a feature.** Read [docs/roadmap.md](docs/roadmap.md) first: it lists what is planned, in what order, and what waits for a decision.
 - **Send a pull request.** Small fixes can go straight to a pull request. For anything bigger, open an issue first, so we agree on the approach before you spend time on it. Features marked **Decision first** in the roadmap need an architecture decision record (ADR) in [docs/decisions/](docs/decisions) before any code.
 - **Improve the docs.** If something here or in `docs/` was unclear to you, it will be unclear to the next person too.
+- **Sponsor the work.** [GitHub Sponsors](https://github.com/sponsors/techuhat) keeps usee free and moving.
 
 ## Set up
 

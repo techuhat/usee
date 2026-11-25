@@ -139,7 +139,7 @@ The Electron app holds the interface, the editing and the export. Capture runs i
 
 ## 🤝 Contributing
 
-Bug reports, ideas and pull requests are all welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers the setup, the checks to run and how the docs work as the specification. Features marked **Next** in the [roadmap](docs/roadmap.md) are good places to start. Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
+Bug reports, ideas and pull requests are all welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers the setup, the checks to run and how the docs work as the specification. Features marked **Next** in the [roadmap](docs/roadmap.md) are good places to start. Questions and ideas go to [Discussions](https://github.com/techuhat/usee/discussions), and [GitHub Sponsors](https://github.com/sponsors/techuhat) keeps usee free and moving. Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 🔏 Code signing policy
 
